@@ -4,16 +4,9 @@ import com.atherys.core.database.mongo.AbstractMongoDatabaseManager;
 import com.google.gson.Gson;
 import com.ljnic.roleplay.cards.CharacterCard;
 import com.ljnic.roleplay.database.RoleplayDatabase;
-import com.ljnic.roleplay.util.Json;
-import javafx.scene.input.DataFormat;
 import org.bson.Document;
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.data.DataContainer;
-import org.spongepowered.api.data.persistence.DataFormats;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.text.Text;
 
-import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -66,9 +59,10 @@ public final class CardManager extends AbstractMongoDatabaseManager<CharacterCar
     @Override
     protected Optional<Document> toDocument(CharacterCard characterCard) {
         Document document = new Document();
-        document.append("uuid", characterCard.getPlayer().toString());
+        document.append("uuid", characterCard.getUUID().toString());
         document.append("playerName", characterCard.getPlayerName());
         document.append("name", characterCard.getName());
+        document.append("nick", characterCard.getNickname());
         document.append("nation", characterCard.getNationality());
         document.append("age", characterCard.getAge());
         document.append("desc", characterCard.getDescription());
@@ -80,9 +74,10 @@ public final class CardManager extends AbstractMongoDatabaseManager<CharacterCar
         CharacterCard card = new CharacterCard(UUID.fromString(document.getString("uuid")),
                 document.getString("playerName"));
         card.setName(document.getString("name"));
+        card.setNickname(document.getString("nick"));
         card.setNationality(document.getString("nation"));
         card.setAge(document.getString("age"));
-        card.setDescription(document.getString("nation"));
+        card.addDescription(document.getString("desc"));
         return Optional.of(card);
     }
 }
