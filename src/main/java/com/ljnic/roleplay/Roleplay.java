@@ -1,13 +1,20 @@
 package com.ljnic.roleplay;
 
+import com.atherys.core.command.CommandService;
 import com.google.inject.Inject;
+import com.ljnic.roleplay.commands.card.MasterCardCommand;
+import com.ljnic.roleplay.listeners.PlayerListener;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
+
+import java.io.IOException;
 
 @Plugin( id = Roleplay.ID, name = Roleplay.NAME, description = Roleplay.DESCRIPTION, version = Roleplay.VERSION )
 public class Roleplay {
@@ -28,14 +35,34 @@ public class Roleplay {
 
     private void init () {
         instance = this;
+        try{
+            config = new RoleplayConfig(getDirectory(), "config.conf");
+            config.init();
+        }catch(IOException e){
+            init = false;
+            e.printStackTrace();
+            return;
+        }
+
+        if(config.IS_DEFAULT){
+            logger.error("The Roleplay config is set to default. Edit the default config settings and change 'isDefault' to false.");
+        }
 
         init = true;
     }
 
     private void start() {
+        Sponge.getEventManager().registerListeners(this, new PlayerListener());
+        CardManager.getInstance().loadAll();
+        try{
+            CommandService.getInstance().register(new MasterCardCommand(), this);
+        }catch(CommandService.AnnotatedCommandException e){
+            e.printStackTrace();
+        }
     }
 
     private void stop() {
+        CardManager.getInstance().saveAll();
     }
 
     @Listener
@@ -75,5 +102,9 @@ public class Roleplay {
 
     public Game game() {
         return game;
+    }
+
+    public String getDirectory(){
+        return "config/" + ID;
     }
 }

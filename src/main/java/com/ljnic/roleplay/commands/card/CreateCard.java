@@ -19,6 +19,11 @@ public class CreateCard implements CommandExecutor {
         if(!(src instanceof Player)) return CommandResult.empty();
 
         Player player = ((Player) src).getPlayer().get();
+
+        if(CardManager.getInstance().hasCard(player)){
+            player.sendMessage(Text.of("You've already created a card."));
+            return CommandResult.empty();
+        }
         CardManager.getInstance().createCard(player);
 
         player.sendMessage(Text.of("Card created."));
