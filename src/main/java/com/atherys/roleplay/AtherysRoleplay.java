@@ -19,7 +19,7 @@ import java.io.IOException;
 @Plugin( id = AtherysRoleplay.ID, name = AtherysRoleplay.NAME, description = AtherysRoleplay.DESCRIPTION, version = AtherysRoleplay.VERSION )
 public class AtherysRoleplay {
     static final String ID = "atherysroleplay";
-    static final String NAME = "A'therys AtherysRoleplay";
+    static final String NAME = "A'therys Roleplay";
     static final String DESCRIPTION = "A roleplay plugin written for the A'therys Horizons server.";
     static final String VERSION = "1.0.0";
 

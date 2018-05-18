@@ -12,7 +12,7 @@ public class AtherysRoleplayConfig extends PluginConfig {
     public boolean IS_DEFAULT = true;
 
     @Setting("dialog_msg_delay")
-    public long DIALOG_MESSAGE_DELAY= 2;
+    public long DIALOG_MESSAGE_DELAY = 2;
 
     @Setting("database")
     public MongoDatabaseConfig DATABASE = new MongoDatabaseConfig();
