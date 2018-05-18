@@ -3,11 +3,11 @@ package com.ljnic.roleplay;
 import com.atherys.core.command.CommandService;
 import com.google.inject.Inject;
 import com.ljnic.roleplay.commands.card.MasterCardCommand;
+import com.ljnic.roleplay.commands.misc.RollCommand;
 import com.ljnic.roleplay.listeners.PlayerListener;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
@@ -56,6 +56,7 @@ public class Roleplay {
         CardManager.getInstance().loadAll();
         try{
             CommandService.getInstance().register(new MasterCardCommand(), this);
+            CommandService.getInstance().register(new RollCommand(), this);
         }catch(CommandService.AnnotatedCommandException e){
             e.printStackTrace();
         }
