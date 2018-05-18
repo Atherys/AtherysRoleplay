@@ -1,9 +1,9 @@
-package com.ljnic.roleplay;
+package com.atherys.roleplay;
 
 import com.atherys.core.database.mongo.AbstractMongoDatabaseManager;
 import com.google.gson.Gson;
-import com.ljnic.roleplay.cards.CharacterCard;
-import com.ljnic.roleplay.database.RoleplayDatabase;
+import com.atherys.roleplay.cards.CharacterCard;
+import com.atherys.roleplay.database.AtherysRoleplayDatabase;
 import org.bson.Document;
 import org.spongepowered.api.entity.living.player.Player;
 
@@ -17,7 +17,7 @@ public final class CardManager extends AbstractMongoDatabaseManager<CharacterCar
     private static CardManager instance = new CardManager();
 
     protected CardManager(){
-        super(Roleplay.getInstance().getLogger(), RoleplayDatabase.getInstance(), "charactercards");
+        super(AtherysRoleplay.getInstance().getLogger(), AtherysRoleplayDatabase.getInstance(), "charactercards");
     }
 
     public CharacterCard createCard(Player player){

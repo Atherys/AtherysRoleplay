@@ -1,4 +1,4 @@
-package com.ljnic.roleplay.util;
+package com.atherys.roleplay.util;
 
 import org.spongepowered.api.service.pagination.PaginationList;
 import org.spongepowered.api.text.Text;

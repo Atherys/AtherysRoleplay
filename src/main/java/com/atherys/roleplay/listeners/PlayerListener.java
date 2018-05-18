@@ -1,6 +1,6 @@
-package com.ljnic.roleplay.listeners;
+package com.atherys.roleplay.listeners;
 
-import com.ljnic.roleplay.CardManager;
+import com.atherys.roleplay.CardManager;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.player.Player;

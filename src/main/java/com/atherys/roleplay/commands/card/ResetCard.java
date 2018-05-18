@@ -1,8 +1,8 @@
-package com.ljnic.roleplay.commands.card;
+package com.atherys.roleplay.commands.card;
 
 import com.atherys.core.command.annotation.Aliases;
-import com.ljnic.roleplay.CardManager;
-import com.ljnic.roleplay.cards.CharacterCard;
+import com.atherys.roleplay.CardManager;
+import com.atherys.roleplay.cards.CharacterCard;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;

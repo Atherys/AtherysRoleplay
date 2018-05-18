@@ -1,4 +1,4 @@
-package com.ljnic.roleplay.cards;
+package com.atherys.roleplay.cards;
 
 import com.atherys.core.database.api.DBObject;
 import org.spongepowered.api.entity.living.player.Player;

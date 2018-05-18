@@ -1,4 +1,4 @@
-package com.ljnic.roleplay;
+package com.atherys.roleplay;
 
 import com.atherys.core.database.mongo.MongoDatabaseConfig;
 import com.atherys.core.utils.PluginConfig;
@@ -6,7 +6,7 @@ import ninja.leaping.configurate.objectmapping.Setting;
 
 import java.io.IOException;
 
-public class RoleplayConfig extends PluginConfig {
+public class AtherysRoleplayConfig extends PluginConfig {
 
     @Setting("is_default")
     public boolean IS_DEFAULT = true;
@@ -17,7 +17,7 @@ public class RoleplayConfig extends PluginConfig {
     @Setting("database")
     public MongoDatabaseConfig DATABASE = new MongoDatabaseConfig();
 
-    protected RoleplayConfig(String directory, String filename) throws IOException {
+    protected AtherysRoleplayConfig(String directory, String filename) throws IOException {
         super(directory, filename);
     }
 }

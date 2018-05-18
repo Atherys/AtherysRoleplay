@@ -1,8 +1,8 @@
-package com.ljnic.roleplay.commands.card.set;
+package com.atherys.roleplay.commands.card.set;
 
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
-import com.ljnic.roleplay.CardManager;
+import com.atherys.roleplay.CardManager;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -16,31 +16,31 @@ import org.spongepowered.api.text.format.TextColors;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
-@Aliases("nickname")
-public class SetCardNickname implements ParameterizedCommand {
+@Aliases("age")
+public class SetCardAge implements ParameterizedCommand {
 
     @Nonnull
     @Override
     public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
         if(!(src instanceof Player)) return CommandResult.empty();
-
         Player player = (Player) src;
-        Optional<String> nickname = args.getOne("nick");
-        nickname.ifPresent(nick -> {
-            if(nick.length() > 16){
-                player.sendMessage(Text.of(TextColors.RED, "Your character's nickname cannot be more than 16 characters."));
+
+        Optional<Integer> age = args.getOne("age");
+        age.ifPresent(a ->{
+            if(a > 150){
+                player.sendMessage(Text.of(TextColors.RED, "Your age cannot be over 150."));
+            } else {
+                player.sendMessage(Text.of(TextColors.DARK_GREEN, "Character age set."));
+                CardManager.getInstance().getCard(player).setAge(a.toString());
             }
-            player.sendMessage(Text.of(TextColors.DARK_GREEN, "Character nickname set. This name will appear in RP chat."));
-            CardManager.getInstance().getCard(player).setNickname(nick);
         });
         return CommandResult.success();
-
     }
 
     @Override
     public CommandElement[] getArguments() {
         return new CommandElement[]{
-                GenericArguments.remainingJoinedStrings(Text.of("nick"))
+                GenericArguments.integer(Text.of("age"))
         };
     }
 }

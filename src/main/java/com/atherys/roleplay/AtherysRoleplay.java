@@ -1,10 +1,10 @@
-package com.ljnic.roleplay;
+package com.atherys.roleplay;
 
 import com.atherys.core.command.CommandService;
 import com.google.inject.Inject;
-import com.ljnic.roleplay.commands.card.MasterCardCommand;
-import com.ljnic.roleplay.commands.misc.RollCommand;
-import com.ljnic.roleplay.listeners.PlayerListener;
+import com.atherys.roleplay.commands.card.MasterCardCommand;
+import com.atherys.roleplay.commands.misc.RollCommand;
+import com.atherys.roleplay.listeners.PlayerListener;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
@@ -16,11 +16,11 @@ import org.spongepowered.api.plugin.Plugin;
 
 import java.io.IOException;
 
-@Plugin( id = Roleplay.ID, name = Roleplay.NAME, description = Roleplay.DESCRIPTION, version = Roleplay.VERSION )
-public class Roleplay {
-    static final String ID = "roleplay";
-    static final String NAME = "Roleplay";
-    static final String DESCRIPTION = "Character cards, dice, and more";
+@Plugin( id = AtherysRoleplay.ID, name = AtherysRoleplay.NAME, description = AtherysRoleplay.DESCRIPTION, version = AtherysRoleplay.VERSION )
+public class AtherysRoleplay {
+    static final String ID = "atherysroleplay";
+    static final String NAME = "A'therys AtherysRoleplay";
+    static final String DESCRIPTION = "A roleplay plugin written for the A'therys Horizons server.";
     static final String VERSION = "1.0.0";
 
     @Inject
@@ -29,14 +29,14 @@ public class Roleplay {
     @Inject
     private Game game;
 
-    private static RoleplayConfig config;
-    private static Roleplay instance;
+    private static AtherysRoleplayConfig config;
+    private static AtherysRoleplay instance;
     private static boolean init = false;
 
     private void init () {
         instance = this;
         try{
-            config = new RoleplayConfig(getDirectory(), "config.conf");
+            config = new AtherysRoleplayConfig(getDirectory(), "config.conf");
             config.init();
         }catch(IOException e){
             init = false;
@@ -45,7 +45,7 @@ public class Roleplay {
         }
 
         if(config.IS_DEFAULT){
-            logger.error("The Roleplay config is set to default. Edit the default config settings and change 'isDefault' to false.");
+            logger.error("The AtherysRoleplay config is set to default. Edit the default config settings and change 'isDefault' to false.");
         }
 
         init = true;
@@ -61,6 +61,7 @@ public class Roleplay {
             e.printStackTrace();
         }
     }
+
 
     private void stop() {
         CardManager.getInstance().saveAll();
@@ -81,7 +82,7 @@ public class Roleplay {
         if ( init ) stop();
     }
 
-    public static Roleplay getInstance() {
+    public static AtherysRoleplay getInstance() {
         return instance;
     }
 
@@ -89,7 +90,7 @@ public class Roleplay {
         return getInstance().logger();
     }
 
-    public static RoleplayConfig getConfig(){
+    public static AtherysRoleplayConfig getConfig(){
         return config;
     }
 
