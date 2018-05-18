@@ -21,6 +21,8 @@ final public class CommandList {
         cardCommandList.add(formatHelp("/card show", "Displays your own card."));
         cardCommandList.add(formatHelp("/card reset", "Resets all card fields."));
         cardCommandList.add(formatHelp("/card name <name>", "Sets the character name of your card."));
+        cardCommandList.add(formatHelp("/card nickname <nickname>", "Sets your character nickname. This name" +
+                "is displayed in RP chat."));
         cardCommandList.add(formatHelp("/card nation <nation>", "Sets the nationality of your card. Options: " +
                 "Atvoria, Daidama, Dalkun-Tir, Gennaia, Kilnholdt."));
         cardCommandList.add(formatHelp("/card description <description>", "Sets the description of your card." +

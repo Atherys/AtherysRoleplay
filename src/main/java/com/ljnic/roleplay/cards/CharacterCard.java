@@ -10,7 +10,6 @@ import java.util.UUID;
 
 public class CharacterCard implements DBObject {
 
-    private static final String title = "   Character Card   ";
     private String age;
     private String description;
     private String name;
@@ -48,30 +47,36 @@ public class CharacterCard implements DBObject {
                 .build();
         Text nameText = (name.equals("")) ? Text.EMPTY : Text.builder()
                 .append(Text.of(TextColors.GOLD, "Character: "))
-                .append(Text.of(TextColors.DARK_GREEN, name + "   "))
+                .append(Text.of(TextColors.DARK_GREEN, name))
                 .append(Text.NEW_LINE)
                 .append(Text.NEW_LINE)
                 .build();
         Text ageText = (age.equals("")) ? Text.EMPTY : Text.builder()
                 .append(Text.of(TextColors.GOLD, "Age: "))
-                .append(Text.of(TextColors.DARK_GREEN, age + "   "))
+                .append(Text.of(TextColors.DARK_GREEN, age))
                 .append(Text.NEW_LINE)
                 .append(Text.NEW_LINE)
                 .build();
         Text nationText = (nationality.equals("")) ? Text.EMPTY : Text.builder()
                 .append(Text.of(TextColors.GOLD, "Nation: "))
-                .append(Text.of(TextColors.DARK_GREEN, nationality + "   "))
+                .append(Text.of(TextColors.DARK_GREEN, nationality))
                 .append(Text.NEW_LINE)
                 .append(Text.NEW_LINE)
                 .build();
         Text descText = (description.equals("")) ? Text.EMPTY : Text.builder()
                 .append(Text.of(TextColors.GOLD, "Description: "))
-                .append(Text.of(TextColors.DARK_GREEN, description + "   "))
+                .append(Text.of(TextColors.DARK_GREEN, description))
+                .append(Text.NEW_LINE)
+                .append(Text.NEW_LINE)
+                .build();
+        Text nickText = (nickname.equals("")) ? Text.EMPTY : Text.builder()
+                .append(Text.of(TextColors.GOLD, "Nickname: "))
+                .append(Text.of(TextColors.DARK_GREEN, nickname))
                 .append(Text.NEW_LINE)
                 .append(Text.NEW_LINE)
                 .build();
         Text bookText = Text.builder()
-                .append(playerText, nameText, ageText, nationText)
+                .append(playerText, nameText, nickText, ageText, nationText)
                 .build();
         BookView bookView = BookView.builder()
                 .addPage(bookText)
