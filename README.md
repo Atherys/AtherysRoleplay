@@ -2,7 +2,7 @@
 
 ## Current features
   * Character cards! 
-   ![pic](https://github.com/Atherys-Horizons/AtherysRoleplay/blob/master/card.png)
+  *  ![pic](https://github.com/Atherys-Horizons/AtherysRoleplay/blob/master/card.png)
   
 ## Planned features
    * Local RP chats
