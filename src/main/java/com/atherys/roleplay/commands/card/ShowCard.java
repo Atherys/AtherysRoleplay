@@ -21,7 +21,7 @@ public class ShowCard implements CommandExecutor {
     public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
         if(!(src instanceof Player)) return CommandResult.empty();
         Player player = ((Player) src).getPlayer().get();
-        CardManager.getInstance().getCard(player).show(player);
+        CardManager.getInstance().getCard(player).createView().show(player);
         return CommandResult.success();
     }
 }

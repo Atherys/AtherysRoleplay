@@ -19,16 +19,19 @@ public class PlayerListener {
     public void onPlayerShiftClick(InteractEntityEvent.Secondary event, @Root Player player){
         if(!(event.getTargetEntity() instanceof Player)) return;
         if(player.get(Keys.IS_SNEAKING).get()){
-            CardManager.getInstance().getCard(((Player) event.getTargetEntity()).getPlayer().get()).show(player);
+            CardManager.getInstance().getCard(((Player) event.getTargetEntity()).getPlayer().get()).createView().show(player);
         }
     }
 
     @Listener
     public void onChat(MessageChannelEvent.Chat e, @Root Player player){
+        e.setCancelled(true);
         AbstractMutableMessageChannel localChannel = new SimpleMutableMessageChannel();
         localChannel.addMember(player);
-        Collection<Entity> nearby = player.getNearbyEntities(15);
-        nearby.forEach(entity -> {
+
+        player.getMessageChannel().asMutable().removeMember(player);
+        Collection<Entity> nearbyPlayers = player.getNearbyEntities(15);
+        nearbyPlayers.forEach(entity -> {
             if(entity instanceof Player){
                 localChannel.addMember((Player)entity);
             }

@@ -1,6 +1,8 @@
 package com.atherys.roleplay.cards;
 
 import com.atherys.core.database.api.DBObject;
+import com.atherys.core.views.View;
+import com.atherys.core.views.Viewable;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.BookView;
 import org.spongepowered.api.text.Text;
@@ -8,7 +10,7 @@ import org.spongepowered.api.text.format.TextColors;
 
 import java.util.UUID;
 
-public class CharacterCard implements DBObject {
+public class CharacterCard implements DBObject, Viewable {
 
     private String age;
     private String description;
@@ -36,53 +38,6 @@ public class CharacterCard implements DBObject {
         this();
         this.player = player.getUniqueId();
         this.playerName = playerName;
-    }
-
-    public void show(Player player){
-        Text playerText = Text.builder()
-                .append(Text.of(TextColors.GOLD, "Player: "))
-                .append(Text.of(TextColors.DARK_GREEN, playerName))
-                .append(Text.NEW_LINE)
-                .append(Text.NEW_LINE)
-                .build();
-        Text nameText = (name.equals("")) ? Text.EMPTY : Text.builder()
-                .append(Text.of(TextColors.GOLD, "Character: "))
-                .append(Text.of(TextColors.DARK_GREEN, name))
-                .append(Text.NEW_LINE)
-                .append(Text.NEW_LINE)
-                .build();
-        Text ageText = (age.equals("")) ? Text.EMPTY : Text.builder()
-                .append(Text.of(TextColors.GOLD, "Age: "))
-                .append(Text.of(TextColors.DARK_GREEN, age))
-                .append(Text.NEW_LINE)
-                .append(Text.NEW_LINE)
-                .build();
-        Text nationText = (nationality.equals("")) ? Text.EMPTY : Text.builder()
-                .append(Text.of(TextColors.GOLD, "Nation: "))
-                .append(Text.of(TextColors.DARK_GREEN, nationality))
-                .append(Text.NEW_LINE)
-                .append(Text.NEW_LINE)
-                .build();
-        Text descText = (description.equals("")) ? Text.EMPTY : Text.builder()
-                .append(Text.of(TextColors.GOLD, "Description: "))
-                .append(Text.of(TextColors.DARK_GREEN, description))
-                .append(Text.NEW_LINE)
-                .append(Text.NEW_LINE)
-                .build();
-        Text nickText = (nickname.equals("")) ? Text.EMPTY : Text.builder()
-                .append(Text.of(TextColors.GOLD, "Nickname: "))
-                .append(Text.of(TextColors.DARK_GREEN, nickname))
-                .append(Text.NEW_LINE)
-                .append(Text.NEW_LINE)
-                .build();
-        Text bookText = Text.builder()
-                .append(playerText, nameText, nickText, ageText, nationText)
-                .build();
-        BookView bookView = BookView.builder()
-                .addPage(bookText)
-                .addPage(descText)
-                .build();
-        player.sendBookView(bookView);
     }
 
     public void setNationality(String nationality) {
@@ -136,5 +91,10 @@ public class CharacterCard implements DBObject {
     @Override
     public UUID getUUID() {
         return player;
+    }
+
+    @Override
+    public View createView() {
+        return new CardView(this);
     }
 }
