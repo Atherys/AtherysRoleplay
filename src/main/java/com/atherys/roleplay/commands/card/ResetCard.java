@@ -27,6 +27,7 @@ public class ResetCard implements CommandExecutor {
         card.setName("");
         card.setAge("");
         card.setDescription("");
+        card.setNickname("");
         player.sendMessage(Text.of(TextColors.DARK_GREEN, "Character card reset."));
         return CommandResult.empty();
     }
