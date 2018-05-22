@@ -1,23 +1,16 @@
 package com.atherys.roleplay;
 
-import com.atherys.core.database.mongo.AbstractMongoDatabaseManager;
-import com.google.gson.Gson;
+import com.atherys.core.database.mongo.MorphiaDatabaseManager;
 import com.atherys.roleplay.cards.CharacterCard;
 import com.atherys.roleplay.database.AtherysRoleplayDatabase;
-import org.bson.Document;
 import org.spongepowered.api.entity.living.player.Player;
 
-import java.util.Optional;
-import java.util.UUID;
-
-public final class CardManager extends AbstractMongoDatabaseManager<CharacterCard> {
-
-    private Gson gson = new Gson();
+public final class CardManager extends MorphiaDatabaseManager<CharacterCard> {
 
     private static CardManager instance = new CardManager();
 
     protected CardManager(){
-        super(AtherysRoleplay.getInstance().getLogger(), AtherysRoleplayDatabase.getInstance(), "charactercards");
+        super(AtherysRoleplayDatabase.getInstance(), AtherysRoleplay.getLogger(), CharacterCard.class);
     }
 
     public CharacterCard createCard(Player player){
@@ -30,14 +23,8 @@ public final class CardManager extends AbstractMongoDatabaseManager<CharacterCar
         this.saveAll(getCache().values());
     }
 
-    @Override
-    public void loadAll(){
-        super.loadAll();
-    }
-
     public void addCard(CharacterCard card){
         this.getCache().put(card.getUUID(), card);
-        this.save(card);
     }
 
     public CharacterCard getCard(Player player){
@@ -56,28 +43,4 @@ public final class CardManager extends AbstractMongoDatabaseManager<CharacterCar
         return instance;
     }
 
-    @Override
-    protected Optional<Document> toDocument(CharacterCard characterCard) {
-        Document document = new Document();
-        document.append("uuid", characterCard.getUUID().toString());
-        document.append("playerName", characterCard.getPlayerName());
-        document.append("name", characterCard.getName());
-        document.append("nick", characterCard.getNickname());
-        document.append("nation", characterCard.getNationality());
-        document.append("age", characterCard.getAge());
-        document.append("desc", characterCard.getDescription());
-        return Optional.of(document);
-    }
-
-    @Override
-    protected Optional<CharacterCard> fromDocument(Document document) {
-        CharacterCard card = new CharacterCard(UUID.fromString(document.getString("uuid")),
-                document.getString("playerName"));
-        card.setName(document.getString("name"));
-        card.setNickname(document.getString("nick"));
-        card.setNationality(document.getString("nation"));
-        card.setAge(document.getString("age"));
-        card.addDescription(document.getString("desc"));
-        return Optional.of(card);
-    }
 }

@@ -3,6 +3,7 @@ package com.atherys.roleplay.cards;
 import com.atherys.core.database.api.DBObject;
 import com.atherys.core.views.View;
 import com.atherys.core.views.Viewable;
+import org.mongodb.morphia.annotations.Id;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.BookView;
 import org.spongepowered.api.text.Text;
@@ -18,6 +19,7 @@ public class CharacterCard implements DBObject, Viewable {
     private String nationality;
     private String playerName;
     private String nickname;
+    @Id
     private UUID player;
 
     private CharacterCard(){
