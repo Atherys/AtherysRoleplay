@@ -4,9 +4,6 @@ import com.atherys.core.database.api.DBObject;
 import com.atherys.core.views.View;
 import com.atherys.core.views.Viewable;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.text.BookView;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
 
 import java.util.UUID;
 

@@ -1,10 +1,10 @@
 package com.atherys.roleplay;
 
 import com.atherys.core.command.CommandService;
-import com.google.inject.Inject;
 import com.atherys.roleplay.commands.card.MasterCardCommand;
 import com.atherys.roleplay.commands.misc.RollCommand;
 import com.atherys.roleplay.listeners.PlayerListener;
+import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;

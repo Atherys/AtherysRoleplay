@@ -1,9 +1,9 @@
 package com.atherys.roleplay;
 
 import com.atherys.core.database.mongo.AbstractMongoDatabaseManager;
-import com.google.gson.Gson;
 import com.atherys.roleplay.cards.CharacterCard;
 import com.atherys.roleplay.database.AtherysRoleplayDatabase;
+import com.google.gson.Gson;
 import org.bson.Document;
 import org.spongepowered.api.entity.living.player.Player;
 
