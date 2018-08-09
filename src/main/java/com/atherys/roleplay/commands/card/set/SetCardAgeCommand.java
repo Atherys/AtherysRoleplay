@@ -2,6 +2,7 @@ package com.atherys.roleplay.commands.card.set;
 
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
+import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.CardManager;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -17,7 +18,8 @@ import javax.annotation.Nonnull;
 import java.util.Optional;
 
 @Aliases("age")
-public class SetCardAge implements ParameterizedCommand {
+@Description("Sets the age of your character.")
+public class SetCardAgeCommand implements ParameterizedCommand {
 
     @Nonnull
     @Override

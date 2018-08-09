@@ -33,6 +33,8 @@ public class AtherysRoleplay {
     private static AtherysRoleplay instance;
     private static boolean init = false;
 
+    private CardManager cardManager;
+
     private void init () {
         instance = this;
         try{
@@ -52,8 +54,11 @@ public class AtherysRoleplay {
     }
 
     private void start() {
+        this.cardManager = CardManager.getInstance();
+        cardManager.loadAll();
+
         Sponge.getEventManager().registerListeners(this, new PlayerListener());
-        CardManager.getInstance().loadAll();
+
         try{
             CommandService.getInstance().register(new MasterCardCommand(), this);
             CommandService.getInstance().register(new RollCommand(), this);
@@ -92,6 +97,10 @@ public class AtherysRoleplay {
 
     public static AtherysRoleplayConfig getConfig(){
         return config;
+    }
+
+    public static CardManager getCardManager(){
+        return getInstance().cardManager;
     }
 
     public static Game getGame() {

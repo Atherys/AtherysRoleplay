@@ -2,6 +2,7 @@ package com.atherys.roleplay.commands.card.set;
 
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
+import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.CardManager;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -16,31 +17,28 @@ import org.spongepowered.api.text.format.TextColors;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
-@Aliases("name")
-public class SetCardName implements ParameterizedCommand {
+@Aliases("description")
+@Description("Sets the description of your character. Subsequent uses will add to your description.")
+public class SetCardDescriptionCommand implements ParameterizedCommand {
 
     @Nonnull
     @Override
     public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
         if(!(src instanceof Player)) return CommandResult.empty();
-
         Player player = (Player) src;
-        Optional<String> name = args.getOne("name");
-        name.ifPresent(n -> {
-            if(n.length() < 33) {
-                CardManager.getInstance().getCard(player).setName(n);
-                player.sendMessage(Text.of(TextColors.DARK_GREEN, "Character name set."));
-            } else {
-                player.sendMessage(Text.of(TextColors.RED, "Your name must be under 32 characters."));
-            }
+        Optional<String> description = args.getOne("description");
+        description.ifPresent(desc -> {
+            player.sendMessage(Text.of(TextColors.DARK_GREEN, "Character description set."));
+            CardManager.getInstance().getCard(player).addDescription(" " + desc);
         });
+
         return CommandResult.success();
     }
 
     @Override
     public CommandElement[] getArguments() {
         return new CommandElement[]{
-                GenericArguments.remainingJoinedStrings(Text.of("name"))
+                GenericArguments.remainingJoinedStrings(Text.of("description"))
         };
     }
 }
