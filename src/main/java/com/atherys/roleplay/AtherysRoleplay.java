@@ -13,6 +13,7 @@ import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.plugin.PluginContainer;
 
 import java.io.IOException;
 
@@ -28,6 +29,9 @@ public class AtherysRoleplay {
 
     @Inject
     private Game game;
+
+    @Inject
+    private PluginContainer container;
 
     private static AtherysRoleplayConfig config;
     private static AtherysRoleplay instance;
@@ -108,5 +112,9 @@ public class AtherysRoleplay {
 
     public String getDirectory(){
         return "config/" + ID;
+    }
+
+    public static PluginContainer getContainer() {
+        return getInstance().container;
     }
 }

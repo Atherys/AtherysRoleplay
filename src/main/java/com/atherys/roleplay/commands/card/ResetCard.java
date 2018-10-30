@@ -1,6 +1,7 @@
 package com.atherys.roleplay.commands.card;
 
 import com.atherys.core.command.annotation.Aliases;
+import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.CardManager;
 import com.atherys.roleplay.cards.CharacterCard;
 import org.spongepowered.api.command.CommandException;
@@ -15,6 +16,7 @@ import org.spongepowered.api.text.format.TextColors;
 import javax.annotation.Nonnull;
 
 @Aliases("reset")
+@Description("Resets all fields of your character card.")
 public class ResetCard implements CommandExecutor {
     @Nonnull
     @Override

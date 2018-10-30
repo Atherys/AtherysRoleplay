@@ -14,7 +14,7 @@ import org.spongepowered.api.entity.living.player.Player;
 
 import javax.annotation.Nonnull;
 
-@Description("Master quest command. Displays list of options.")
+@Description("Displays list of commands.")
 @Children({ CreateCard.class,
             ShowCard.class,
             SetCardDescription.class,
