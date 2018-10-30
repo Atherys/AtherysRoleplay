@@ -1,9 +1,9 @@
 package com.atherys.roleplay;
 
 import com.atherys.core.database.mongo.AbstractMongoDatabaseManager;
-import com.google.gson.Gson;
 import com.atherys.roleplay.cards.CharacterCard;
 import com.atherys.roleplay.database.AtherysRoleplayDatabase;
+import com.google.gson.Gson;
 import org.bson.Document;
 import org.spongepowered.api.entity.living.player.Player;
 
@@ -71,8 +71,10 @@ public final class CardManager extends AbstractMongoDatabaseManager<CharacterCar
 
     @Override
     protected Optional<CharacterCard> fromDocument(Document document) {
-        CharacterCard card = new CharacterCard(UUID.fromString(document.getString("uuid")),
-                document.getString("playerName"));
+        CharacterCard card = new CharacterCard(
+                UUID.fromString(document.getString("uuid")),
+                document.getString("playerName")
+        );
         card.setName(document.getString("name"));
         card.setNickname(document.getString("nick"));
         card.setNationality(document.getString("nation"));

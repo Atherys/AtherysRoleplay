@@ -1,10 +1,10 @@
 package com.atherys.roleplay;
 
 import com.atherys.core.command.CommandService;
-import com.google.inject.Inject;
 import com.atherys.roleplay.commands.card.MasterCardCommand;
 import com.atherys.roleplay.commands.misc.RollCommand;
 import com.atherys.roleplay.listeners.PlayerListener;
+import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
@@ -37,6 +37,8 @@ public class AtherysRoleplay {
     private static AtherysRoleplay instance;
     private static boolean init = false;
 
+    private CardManager cardManager;
+
     private void init () {
         instance = this;
         try{
@@ -56,8 +58,11 @@ public class AtherysRoleplay {
     }
 
     private void start() {
+        this.cardManager = CardManager.getInstance();
+        cardManager.loadAll();
+
         Sponge.getEventManager().registerListeners(this, new PlayerListener());
-        CardManager.getInstance().loadAll();
+
         try{
             CommandService.getInstance().register(new MasterCardCommand(), this);
             CommandService.getInstance().register(new RollCommand(), this);
@@ -96,6 +101,10 @@ public class AtherysRoleplay {
 
     public static AtherysRoleplayConfig getConfig(){
         return config;
+    }
+
+    public static CardManager getCardManager(){
+        return getInstance().cardManager;
     }
 
     public static Game getGame() {

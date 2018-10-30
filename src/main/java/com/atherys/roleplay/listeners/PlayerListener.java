@@ -1,42 +1,23 @@
 package com.atherys.roleplay.listeners;
 
-import com.atherys.roleplay.CardManager;
+import com.atherys.roleplay.AtherysRoleplay;
 import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.InteractEntityEvent;
 import org.spongepowered.api.event.filter.cause.Root;
-import org.spongepowered.api.event.message.MessageChannelEvent;
-import org.spongepowered.api.text.channel.AbstractMutableMessageChannel;
-import org.spongepowered.api.text.channel.impl.SimpleMutableMessageChannel;
-
-import java.util.Collection;
 
 public class PlayerListener {
 
     @Listener
     public void onPlayerShiftClick(InteractEntityEvent.Secondary event, @Root Player player){
         if(!(event.getTargetEntity() instanceof Player)) return;
-        if(player.get(Keys.IS_SNEAKING).get()){
-            CardManager.getInstance().getCard(((Player) event.getTargetEntity()).getPlayer().get()).createView().show(player);
-        }
-    }
 
-    @Listener
-    public void onChat(MessageChannelEvent.Chat e, @Root Player player){
-        e.setCancelled(true);
-        AbstractMutableMessageChannel localChannel = new SimpleMutableMessageChannel();
-        localChannel.addMember(player);
-
-        player.getMessageChannel().asMutable().removeMember(player);
-        Collection<Entity> nearbyPlayers = player.getNearbyEntities(15);
-        nearbyPlayers.forEach(entity -> {
-            if(entity instanceof Player){
-                localChannel.addMember((Player)entity);
+        Player target = (Player) event.getTargetEntity();
+        player.get(Keys.IS_SNEAKING).ifPresent(key -> {
+            if (key) {
+                AtherysRoleplay.getCardManager().getCard(target).createView().show(player);
             }
         });
-
-        localChannel.send(e.getOriginalMessage());
     }
 }
