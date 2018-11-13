@@ -3,7 +3,9 @@ package com.atherys.roleplay.commands.card.set;
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
+import com.atherys.roleplay.AtherysRoleplay;
 import com.atherys.roleplay.CardManager;
+import com.atherys.roleplay.RoleplayMsg;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -12,7 +14,6 @@ import org.spongepowered.api.command.args.CommandElement;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -29,11 +30,11 @@ public class SetCardNameCommand implements ParameterizedCommand {
         Player player = (Player) src;
         Optional<String> name = args.getOne("name");
         name.ifPresent(n -> {
-            if(n.length() < 33) {
-                CardManager.getInstance().getCard(player).setName(n);
-                player.sendMessage(Text.of(TextColors.DARK_GREEN, "Character name set."));
+            if(n.length() > AtherysRoleplay.getConfig().MAXIMUM_NAME_LENGTH) {
+                RoleplayMsg.error(player, "Your name must be under " + AtherysRoleplay.getConfig().MAXIMUM_NAME_LENGTH);
             } else {
-                player.sendMessage(Text.of(TextColors.RED, "Your name must be under 32 characters."));
+                CardManager.getInstance().getCard(player).setName(n);
+                RoleplayMsg.info(player, "Character name set.");
             }
         });
         return CommandResult.success();

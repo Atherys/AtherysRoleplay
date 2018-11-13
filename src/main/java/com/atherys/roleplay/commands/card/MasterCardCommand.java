@@ -5,6 +5,7 @@ import com.atherys.core.command.annotation.Children;
 import com.atherys.core.command.annotation.Description;
 import com.atherys.core.utils.PaginationUtils;
 import com.atherys.roleplay.commands.card.set.*;
+import com.atherys.roleplay.menu.Menus;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -47,7 +48,7 @@ public class MasterCardCommand implements CommandExecutor {
     @Override
     public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
         if(!(src instanceof Player)) return CommandResult.empty();
-        commandList.sendTo(src);
+        Menus.cardMenu.open((Player) src);
         return CommandResult.success();
     }
 }

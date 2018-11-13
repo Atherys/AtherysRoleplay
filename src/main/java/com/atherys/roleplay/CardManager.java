@@ -17,7 +17,7 @@ public final class CardManager extends AbstractMongoDatabaseManager<CharacterCar
     private static CardManager instance = new CardManager();
 
     protected CardManager(){
-        super(AtherysRoleplay.getInstance().getLogger(), AtherysRoleplayDatabase.getInstance(), CharacterCard.class);
+        super(AtherysRoleplay.getLogger(), AtherysRoleplayDatabase.getInstance(), CharacterCard.class);
     }
 
     public CharacterCard createCard(Player player){
@@ -75,6 +75,7 @@ public final class CardManager extends AbstractMongoDatabaseManager<CharacterCar
                 UUID.fromString(document.getString("uuid")),
                 document.getString("playerName")
         );
+
         card.setName(document.getString("name"));
         card.setNickname(document.getString("nick"));
         card.setNationality(document.getString("nation"));

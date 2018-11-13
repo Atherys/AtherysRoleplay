@@ -1,11 +1,14 @@
 package com.atherys.roleplay.listeners;
 
 import com.atherys.roleplay.AtherysRoleplay;
+import com.atherys.roleplay.menu.Menus;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.InteractEntityEvent;
+import org.spongepowered.api.event.entity.MoveEntityEvent;
 import org.spongepowered.api.event.filter.cause.Root;
+import org.spongepowered.api.event.message.MessageChannelEvent;
 
 public class PlayerListener {
 
@@ -19,5 +22,22 @@ public class PlayerListener {
                 AtherysRoleplay.getCardManager().getCard(target).createView().show(player);
             }
         });
+    }
+
+    @Listener
+    public void onPlayerChat(MessageChannelEvent.Chat event, @Root Player player) {
+        if (AtherysRoleplay.getMenuService().inSession(player)) {
+            event.setCancelled(true);
+            AtherysRoleplay.getMenuService().endSession(player, event.getRawMessage().toPlain());
+            Menus.cardMenu.open(player);
+        }
+    }
+
+    @Listener
+    public void onPlayerMove(MoveEntityEvent event, @Root Player player) {
+        if (AtherysRoleplay.getMenuService().isViewingBook(player)) {
+            Menus.cardMenu.open(player);
+            AtherysRoleplay.getMenuService().endBookView(player);
+        }
     }
 }
