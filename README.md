@@ -6,6 +6,8 @@
   
 ## Planned features
    * Local RP chats
+   * Dice rolling
   
 ## Requirements
   * [AtherysCore](https://github.com/Atherys-Horizons/AtherysCore)
+  * A MongoDB database
