@@ -3,7 +3,9 @@ package com.atherys.roleplay.commands.card.set;
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
+import com.atherys.roleplay.AtherysRoleplay;
 import com.atherys.roleplay.CardManager;
+import com.atherys.roleplay.RoleplayMsg;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -12,7 +14,6 @@ import org.spongepowered.api.command.args.CommandElement;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -21,18 +22,23 @@ import java.util.Optional;
 @Description("Sets the age of your character.")
 public class SetCardAgeCommand implements ParameterizedCommand {
 
+    private static Text errorMessage = Text.of("Your age cannot be more than " + AtherysRoleplay.getConfig().MAXIMUM_AGE + ".");
+
     @Nonnull
     @Override
     public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
         if(!(src instanceof Player)) return CommandResult.empty();
         Player player = (Player) src;
 
+
         Optional<Integer> age = args.getOne("age");
-        age.ifPresent(a ->{
-            if(a > 150){
-                player.sendMessage(Text.of(TextColors.RED, "Your age cannot be over 150."));
+        age.ifPresent(a -> {
+            if (a > AtherysRoleplay.getConfig().MAXIMUM_AGE) {
+                RoleplayMsg.error(player, errorMessage);
+            } else if (a < 1) {
+                RoleplayMsg.error(player, "Your age must be greater than 0.");
             } else {
-                player.sendMessage(Text.of(TextColors.DARK_GREEN, "Character age set."));
+                RoleplayMsg.info(player, "Character age set.");
                 CardManager.getInstance().getCard(player).setAge(a.toString());
             }
         });

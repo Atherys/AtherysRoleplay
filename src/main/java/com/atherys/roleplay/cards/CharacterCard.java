@@ -17,7 +17,7 @@ public class CharacterCard implements DBObject, Viewable {
     private String nickname;
     private UUID player;
 
-    private CharacterCard(){
+    public void resetCard(){
         this.age = "";
         this.description = "";
         this.name = "";
@@ -26,13 +26,13 @@ public class CharacterCard implements DBObject, Viewable {
     }
 
     public CharacterCard(UUID player, String playerName){
-        this();
+        resetCard();
         this.player = player;
         this.playerName = playerName;
     }
 
     public CharacterCard(Player player, String playerName){
-        this();
+        resetCard();
         this.player = player.getUniqueId();
         this.playerName = playerName;
     }

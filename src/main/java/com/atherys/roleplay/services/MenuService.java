@@ -2,13 +2,12 @@ package com.atherys.roleplay.services;
 
 import org.spongepowered.api.entity.living.player.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class MenuService {
     private Map<UUID, Consumer<String>> sessions = new HashMap<>();
+    private List<UUID> bookViewers = new ArrayList<>();
 
     private static MenuService instance = new MenuService();
 
@@ -17,6 +16,18 @@ public class MenuService {
 
     public static MenuService getInstance() {
         return instance;
+    }
+
+    public void startBookView(Player player) {
+        bookViewers.add(player.getUniqueId());
+    }
+
+    public boolean isViewingBook(Player player) {
+        return bookViewers.contains(player.getUniqueId());
+    }
+
+    public void endBookView(Player player) {
+        bookViewers.remove(player.getUniqueId());
     }
 
     public void startSession(Player player, Consumer<String> action) {
