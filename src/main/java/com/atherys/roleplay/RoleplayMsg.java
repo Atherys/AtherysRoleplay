@@ -17,10 +17,14 @@ public class RoleplayMsg {
     }
 
     public static void error(Player player, Text message) {
-        player.sendMessage(Text.of(prefix, TextColors.DARK_RED, message));
+        player.sendMessage(Text.of(prefix, TextColors.RED, message));
     }
 
     public static void error(Player player, String message) {
         error(player, Text.of(message));
+    }
+
+    public static Text info(Text message) {
+        return Text.of(prefix, message);
     }
 }
