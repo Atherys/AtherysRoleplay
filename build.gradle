@@ -44,3 +44,17 @@ shadowJar {
     relocate 'org.bson', 'com.atherys.libs.org.bson'
     relocate 'com.mongodb', 'com.atherys.libs.com.mongodb'
 }
+
+javadoc {
+    source = sourceSets.main.allJava
+    title = "AtherysRoleplay"
+    classpath = configurations.compile + configurations.shadow
+    options.links(
+            'http://www.slf4j.org/apidocs/',
+            'https://docs.oracle.com/javase/8/docs/api/',
+            'https://flow.github.io/math/',
+            'http://jd.spongepowered.org/7.1.0/'
+    )
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
