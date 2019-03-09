@@ -1,13 +1,11 @@
 package com.atherys.roleplay.cards;
 
-import com.atherys.core.database.api.DBObject;
-import com.atherys.core.views.View;
-import com.atherys.core.views.Viewable;
+import com.atherys.core.db.Identifiable;
 import org.spongepowered.api.entity.living.player.Player;
 
 import java.util.UUID;
 
-public class CharacterCard implements DBObject, Viewable {
+public class CharacterCard implements Identifiable<UUID> {
 
     private String age;
     private String description;
@@ -86,12 +84,7 @@ public class CharacterCard implements DBObject, Viewable {
     }
 
     @Override
-    public View createView() {
-        return new CardView(this);
-    }
-
-    @Override
-    public UUID getUniqueId() {
+    public UUID getId() {
         return player;
     }
 }

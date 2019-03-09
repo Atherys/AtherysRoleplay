@@ -1,4 +1,4 @@
-package com.atherys.roleplay.commands.misc;
+package com.atherys.roleplay.command.misc;
 
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
@@ -20,7 +20,6 @@ import org.spongepowered.api.text.format.TextStyles;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 import java.util.Random;
-import java.util.regex.Pattern;
 
 import static org.spongepowered.api.text.TextTemplate.arg;
 

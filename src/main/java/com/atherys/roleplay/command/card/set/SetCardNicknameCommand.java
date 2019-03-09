@@ -1,4 +1,4 @@
-package com.atherys.roleplay.commands.card.set;
+package com.atherys.roleplay.command.card.set;
 
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;

@@ -1,10 +1,10 @@
-package com.atherys.roleplay.commands.card;
+package com.atherys.roleplay.command.card;
 
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Children;
 import com.atherys.core.command.annotation.Description;
 import com.atherys.core.utils.PaginationUtils;
-import com.atherys.roleplay.commands.card.set.*;
+import com.atherys.roleplay.command.card.set.*;
 import com.atherys.roleplay.menu.Menus;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -17,7 +17,7 @@ import org.spongepowered.api.service.pagination.PaginationList;
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 
-@Description("Displays list of commands.")
+@Description("Displays list of command.")
 @Children({ CreateCardCommand.class,
             ShowCardCommand.class,
             SetCardDescriptionCommand.class,
