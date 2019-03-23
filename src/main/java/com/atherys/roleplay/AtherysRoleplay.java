@@ -3,7 +3,9 @@ package com.atherys.roleplay;
 import com.atherys.core.command.CommandService;
 import com.atherys.roleplay.command.card.MasterCardCommand;
 import com.atherys.roleplay.command.misc.RollCommand;
+import com.atherys.roleplay.facade.CardFacade;
 import com.atherys.roleplay.listeners.PlayerListener;
+import com.atherys.roleplay.service.CardService;
 import com.atherys.roleplay.service.MenuService;
 import com.google.inject.Inject;
 import org.slf4j.Logger;
@@ -41,7 +43,14 @@ public class AtherysRoleplay {
     private static AtherysRoleplay instance;
     private static boolean init = false;
 
+    @Inject
     private MenuService menuService;
+
+    @Inject
+    private CardService cardService;
+
+    @Inject
+    private CardFacade cardFacade;
 
     private void init () {
         instance = this;
@@ -63,8 +72,6 @@ public class AtherysRoleplay {
 
     private void start() {
         getLogger().info(config.NATIONS.get(0).getName());
-        this.menuService = MenuService.getInstance();
-
         Sponge.getEventManager().registerListeners(this, new PlayerListener());
 
         try {
@@ -115,15 +122,11 @@ public class AtherysRoleplay {
     }
 
     public static Game getGame() {
-        return getInstance().game();
+        return getInstance().game;
     }
 
     public Logger logger() {
         return logger;
-    }
-
-    public Game game() {
-        return game;
     }
 
     public String getDirectory(){

@@ -31,7 +31,7 @@ public class Menus {
         Element view = Element.of(
                 viewItem,
                 action -> {
-                    AtherysRoleplay.getCardManager().getCard(action.getPlayer()).createView().show(action.getPlayer());
+//                    AtherysRoleplay.getCardManager().getCard(action.getPlayer()).createView().show(action.getPlayer());
                     AtherysRoleplay.getMenuService().startBookView(action.getPlayer());
                 }
         );
@@ -109,7 +109,7 @@ public class Menus {
         Element resetDescription = Element.of(
                 resetDescriptionItem,
                 action -> {
-                    AtherysRoleplay.getCardManager().getCard(action.getPlayer()).setDescription("");
+//                    AtherysRoleplay.getCardManager().getCard(action.getPlayer()).setDescription("");
                     RoleplayMsg.info(action.getPlayer(),"Character description reset.");
                 }
         );
@@ -122,7 +122,7 @@ public class Menus {
         Element reset = Element.of(
                 resetItem,
                 action -> {
-                    AtherysRoleplay.getCardManager().getCard(action.getPlayer()).resetCard();
+  //                  AtherysRoleplay.getCardManager().getCard(action.getPlayer()).resetCard();
                     RoleplayMsg.info(action.getPlayer(), "Character card reset.");
                     action.getPlayer().sendMessage(Text.of(TextColors.DARK_GREEN, "Character card reset."));
                 }
@@ -159,7 +159,7 @@ public class Menus {
                     Element.of(
                             nationItem,
                             action -> {
-                                AtherysRoleplay.getCardManager().getCard(action.getPlayer()).setNationality(nation.getName());
+      //                          AtherysRoleplay.getCardManager().getCard(action.getPlayer()).setNationality(nation.getName());
                                 RoleplayMsg.nationMessage(action.getPlayer(), nation);
                             }),
                     index

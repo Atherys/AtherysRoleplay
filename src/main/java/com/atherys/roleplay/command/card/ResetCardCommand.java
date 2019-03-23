@@ -2,7 +2,6 @@ package com.atherys.roleplay.command.card;
 
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
-import com.atherys.roleplay.CardManager;
 import com.atherys.roleplay.RoleplayMsg;
 import com.atherys.roleplay.cards.CharacterCard;
 import org.spongepowered.api.command.CommandException;
@@ -23,8 +22,8 @@ public class ResetCardCommand implements CommandExecutor {
         if(!(src instanceof Player)) return CommandResult.empty();
 
         Player player = (Player) src;
-        CharacterCard card = CardManager.getInstance().getCard(player);
-        card.resetCard();
+        //CharacterCard card = CardManager.getInstance().getCard(player);
+        //card.resetCard();
         RoleplayMsg.info(player, "Character card reset.");
         return CommandResult.empty();
     }

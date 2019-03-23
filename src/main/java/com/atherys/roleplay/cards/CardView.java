@@ -1,12 +1,11 @@
 package com.atherys.roleplay.cards;
 
-import com.atherys.core.views.View;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.BookView;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
-public class CardView implements View {
+public class CardView {
     private CharacterCard card;
 
     public CardView(CharacterCard card){
@@ -59,7 +58,6 @@ public class CardView implements View {
                 .build();
     }
 
-    @Override
     public void show(Player player){
         player.sendBookView(toBookView());
     }

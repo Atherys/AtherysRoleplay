@@ -2,7 +2,6 @@ package com.atherys.roleplay.command.card;
 
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
-import com.atherys.roleplay.CardManager;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -21,7 +20,7 @@ public class ShowCardCommand implements CommandExecutor {
     public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
         if(!(src instanceof Player)) return CommandResult.empty();
         Player player = ((Player) src).getPlayer().get();
-        CardManager.getInstance().getCard(player).createView().show(player);
+        //CardManager.getInstance().getCard(player).createView().show(player);
         return CommandResult.success();
     }
 }

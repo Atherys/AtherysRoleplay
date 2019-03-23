@@ -1,13 +1,27 @@
 package com.atherys.roleplay.persistence;
 
-import com.atherys.core.db.HibernateRepository;
+import com.atherys.core.db.CachedHibernateRepository;
+import com.atherys.roleplay.AtherysRoleplay;
 import com.atherys.roleplay.cards.CharacterCard;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import java.util.UUID;
 
-public class CardRepository extends HibernateRepository<CharacterCard, UUID> {
+@Singleton
+public class CardRepository extends CachedHibernateRepository<CharacterCard, UUID> {
 
-    public CardRepository(Class<CharacterCard> persistable) {
-        super(persistable);
+    private RoleplayCache cache;
+
+    @Inject
+    protected CardRepository(RoleplayCache cache) {
+        super(CharacterCard.class);
+        super.cache = cache.getCardCache();
+        this.cache = cache;
+    }
+
+    @Override
+    public void initCache() {
+        cache.getCardCache().getAll().forEach(card -> AtherysRoleplay.getLogger().info(card.getName()));
     }
 }

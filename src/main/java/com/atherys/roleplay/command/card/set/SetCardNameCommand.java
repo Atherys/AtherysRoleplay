@@ -32,7 +32,7 @@ public class SetCardNameCommand implements ParameterizedCommand {
             if(n.length() > AtherysRoleplay.getConfig().MAXIMUM_NAME_LENGTH) {
                 RoleplayMsg.error(player, "Your name must be under " + AtherysRoleplay.getConfig().MAXIMUM_NAME_LENGTH);
             } else {
-                CardManager.getInstance().getCard(player).setName(n);
+                //CardManager.getInstance().getCard(player).setName(n);
                 RoleplayMsg.info(player, "Character name set.");
             }
         });

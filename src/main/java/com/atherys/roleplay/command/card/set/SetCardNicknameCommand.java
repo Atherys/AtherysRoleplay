@@ -35,7 +35,7 @@ public class SetCardNicknameCommand implements ParameterizedCommand {
                 RoleplayMsg.error(player, errorMessage);
             } else {
                 RoleplayMsg.error(player, "Character nickname set. This name will appear in roleplay chats.");
-                AtherysRoleplay.getCardManager().getCard(player).setNickname(nick);
+                //AtherysRoleplay.getCardManager().getCard(player).setNickname(nick);
             }
         });
         return CommandResult.success();

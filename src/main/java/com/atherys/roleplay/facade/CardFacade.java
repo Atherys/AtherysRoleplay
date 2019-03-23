@@ -8,4 +8,7 @@ import com.google.inject.Singleton;
 public class CardFacade {
     @Inject
     CardService cardService;
+
+    CardFacade() {
+    }
 }

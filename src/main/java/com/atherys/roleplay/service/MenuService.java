@@ -13,7 +13,7 @@ public class MenuService {
 
     private static MenuService instance = new MenuService();
 
-    private MenuService() {
+    MenuService() {
     }
 
     public static MenuService getInstance() {
