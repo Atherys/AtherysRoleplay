@@ -32,7 +32,7 @@ public class Menus {
                 viewItem,
                 action -> {
 //                    AtherysRoleplay.getCardManager().getCard(action.getPlayer()).createView().show(action.getPlayer());
-                    AtherysRoleplay.getMenuService().startBookView(action.getPlayer());
+                    AtherysRoleplay.getInstance().getMenuService().startBookView(action.getPlayer());
                 }
         );
 

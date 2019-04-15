@@ -8,17 +8,16 @@ import com.atherys.roleplay.listeners.PlayerListener;
 import com.atherys.roleplay.service.CardService;
 import com.atherys.roleplay.service.MenuService;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
-import org.spongepowered.api.text.Text;
 
 import java.io.IOException;
 
@@ -40,20 +39,22 @@ public class AtherysRoleplay {
 
     private static AtherysRoleplayConfig config;
 
+    @Inject
+    private Injector spongeInjector;
+
+    private Components components;
+
+    private Injector townsInjector;
+
     private static AtherysRoleplay instance;
     private static boolean init = false;
 
-    @Inject
-    private MenuService menuService;
-
-    @Inject
-    private CardService cardService;
-
-    @Inject
-    private CardFacade cardFacade;
-
     private void init () {
         instance = this;
+        components = new Components();
+        townsInjector = spongeInjector.createChildInjector(new AtherysRoleplayModule());
+        townsInjector.injectMembers(components);
+
         try {
             config = new AtherysRoleplayConfig(getDirectory(), "config.conf");
             config.init();
@@ -71,9 +72,7 @@ public class AtherysRoleplay {
     }
 
     private void start() {
-        getLogger().info(config.NATIONS.get(0).getName());
         Sponge.getEventManager().registerListeners(this, new PlayerListener());
-
         try {
             CommandService.getInstance().register(new MasterCardCommand(), this);
             CommandService.getInstance().register(new RollCommand(), this);
@@ -81,8 +80,6 @@ public class AtherysRoleplay {
             e.printStackTrace();
         }
     }
-
-
 
     private void stop() {
     }
@@ -102,9 +99,6 @@ public class AtherysRoleplay {
         if ( init ) stop();
     }
 
-    public static void successMessage(Player player, Text message) {
-    }
-
     public static AtherysRoleplay getInstance() {
         return instance;
     }
@@ -115,10 +109,6 @@ public class AtherysRoleplay {
 
     public static AtherysRoleplayConfig getConfig(){
         return config;
-    }
-
-    public static MenuService getMenuService() {
-        return getInstance().menuService;
     }
 
     public static Game getGame() {
@@ -135,5 +125,28 @@ public class AtherysRoleplay {
 
     public static PluginContainer getContainer() {
         return getInstance().container;
+    }
+
+    public MenuService getMenuService() {
+        return components.menuService;
+    }
+
+    public CardService getCardService() {
+        return components.cardService;
+    }
+
+    public CardFacade getCardFacade() {
+        return components.cardFacade;
+    }
+
+    private static class Components {
+        @Inject
+        private MenuService menuService;
+
+        @Inject
+        private CardService cardService;
+
+        @Inject
+        private CardFacade cardFacade;
     }
 }

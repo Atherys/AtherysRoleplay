@@ -26,18 +26,18 @@ public class PlayerListener {
 
     @Listener
     public void onPlayerChat(MessageChannelEvent.Chat event, @Root Player player) {
-        if (AtherysRoleplay.getMenuService().inSession(player)) {
+        if (AtherysRoleplay.getInstance().getMenuService().inSession(player)) {
             event.setCancelled(true);
-            AtherysRoleplay.getMenuService().endSession(player, event.getRawMessage().toPlain());
+            AtherysRoleplay.getInstance().getMenuService().endSession(player, event.getRawMessage().toPlain());
             Menus.cardMenu.open(player);
         }
     }
 
     @Listener
     public void onPlayerMove(MoveEntityEvent event, @Root Player player) {
-        if (AtherysRoleplay.getMenuService().isViewingBook(player)) {
+        if (AtherysRoleplay.getInstance().getMenuService().isViewingBook(player)) {
             Menus.cardMenu.open(player);
-            AtherysRoleplay.getMenuService().endBookView(player);
+            AtherysRoleplay.getInstance().getMenuService().endBookView(player);
         }
     }
 }
