@@ -4,7 +4,7 @@ import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.AtherysRoleplay;
-import com.atherys.roleplay.RoleplayMsg;
+
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -30,10 +30,10 @@ public class SetCardNameCommand implements ParameterizedCommand {
         Optional<String> name = args.getOne("name");
         name.ifPresent(n -> {
             if(n.length() > AtherysRoleplay.getInstance().getConfig().MAXIMUM_NAME_LENGTH) {
-                RoleplayMsg.error(player, "Your name must be under " + AtherysRoleplay.getInstance().getConfig().MAXIMUM_NAME_LENGTH);
+                AtherysRoleplay.getInstance().getMessagingFacade().error(player, "Your name must be under " + AtherysRoleplay.getInstance().getConfig().MAXIMUM_NAME_LENGTH);
             } else {
                 //CardManager.getInstance().getCard(player).setName(n);
-                RoleplayMsg.info(player, "Character name set.");
+                AtherysRoleplay.getInstance().getMessagingFacade().info(player, "Character name set.");
             }
         });
         return CommandResult.success();

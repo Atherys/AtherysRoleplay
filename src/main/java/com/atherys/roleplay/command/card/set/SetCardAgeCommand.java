@@ -4,7 +4,7 @@ import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.AtherysRoleplay;
-import com.atherys.roleplay.RoleplayMsg;
+
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -33,11 +33,11 @@ public class SetCardAgeCommand implements ParameterizedCommand {
         Optional<Integer> age = args.getOne("age");
         age.ifPresent(a -> {
             if (a > AtherysRoleplay.getInstance().getConfig().MAXIMUM_AGE) {
-                RoleplayMsg.error(player, errorMessage);
+                AtherysRoleplay.getInstance().getMessagingFacade().error(player, errorMessage);
             } else if (a < 1) {
-                RoleplayMsg.error(player, "Your age must be greater than 0.");
+                AtherysRoleplay.getInstance().getMessagingFacade().error(player, "Your age must be greater than 0.");
             } else {
-                RoleplayMsg.info(player, "Character age set.");
+                AtherysRoleplay.getInstance().getMessagingFacade().info(player, "Character age set.");
                 //CardManager.getInstance().getCard(player).setAge(a.toString());
             }
         });

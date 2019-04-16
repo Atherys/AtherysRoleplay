@@ -3,7 +3,8 @@ package com.atherys.roleplay.command.card.set;
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
-import com.atherys.roleplay.RoleplayMsg;
+
+import com.atherys.roleplay.AtherysRoleplay;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -27,7 +28,7 @@ public class SetCardDescriptionCommand implements ParameterizedCommand {
         Player player = (Player) src;
         Optional<String> description = args.getOne("description");
         description.ifPresent(desc -> {
-            RoleplayMsg.info(player, "Character description updated.");
+            AtherysRoleplay.getInstance().getMessagingFacade().info(player, "Character description updated.");
             //CardManager.getInstance().getCard(player).addDescription(" " + desc);
         });
 

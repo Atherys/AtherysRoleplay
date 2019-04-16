@@ -1,6 +1,7 @@
 package com.atherys.roleplay;
 
 import com.atherys.roleplay.facade.CardFacade;
+import com.atherys.roleplay.facade.RoleplayMessagingFacade;
 import com.atherys.roleplay.persistence.RoleplayCache;
 import com.atherys.roleplay.service.CardService;
 import com.atherys.roleplay.service.MenuService;
@@ -19,8 +20,9 @@ public class AtherysRoleplayModule extends AbstractModule {
 
         bind(CardRepository.class);
         bind(CardService.class);
-        bind(CardFacade.class);
         bind(MenuService.class);
+        bind(CardFacade.class);
+        bind(RoleplayMessagingFacade.class);
 
         bind(UserStorageService.class).toProvider(() -> {
             return Sponge.getServiceManager().provide(UserStorageService.class).orElse(null);

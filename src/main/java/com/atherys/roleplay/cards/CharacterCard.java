@@ -3,6 +3,7 @@ package com.atherys.roleplay.cards;
 import com.atherys.core.db.Identifiable;
 import org.spongepowered.api.entity.living.player.Player;
 
+import javax.persistence.Id;
 import java.util.UUID;
 
 public class CharacterCard implements Identifiable<UUID> {
@@ -13,6 +14,8 @@ public class CharacterCard implements Identifiable<UUID> {
     private String nationality;
     private String playerName;
     private String nickname;
+
+    @Id
     private UUID player;
 
     public void resetCard(){

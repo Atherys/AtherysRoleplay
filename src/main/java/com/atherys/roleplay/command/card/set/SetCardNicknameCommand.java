@@ -4,7 +4,7 @@ import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.AtherysRoleplay;
-import com.atherys.roleplay.RoleplayMsg;
+
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -32,9 +32,9 @@ public class SetCardNicknameCommand implements ParameterizedCommand {
         Optional<String> nickname = args.getOne("nick");
         nickname.ifPresent(nick -> {
             if (nick.length() > 16) {
-                RoleplayMsg.error(player, errorMessage);
+                AtherysRoleplay.getInstance().getMessagingFacade().error(player, errorMessage);
             } else {
-                RoleplayMsg.error(player, "Character nickname set. This name will appear in roleplay chats.");
+                AtherysRoleplay.getInstance().getMessagingFacade().error(player, "Character nickname set. This name will appear in roleplay chats.");
                 //AtherysRoleplay.getCardManager().getCard(player).setNickname(nick);
             }
         });

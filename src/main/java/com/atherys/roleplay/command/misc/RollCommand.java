@@ -2,7 +2,8 @@ package com.atherys.roleplay.command.misc;
 
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
-import com.atherys.roleplay.RoleplayMsg;
+
+import com.atherys.roleplay.AtherysRoleplay;
 import com.google.common.collect.ImmutableMap;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -61,13 +62,13 @@ public class RollCommand implements ParameterizedCommand {
                try {
                    roll = rand.nextInt(Integer.parseInt(d)) + 1;
                } catch (NumberFormatException e) {
-                   RoleplayMsg.error(player, "Roll argument must be a number, or in the format 'dX or YdX.");
+                   AtherysRoleplay.getInstance().getMessagingFacade().error(player, "Roll argument must be a number, or in the format 'dX or YdX.");
                    return;
                }
            }
 
            MessageChannel playerChannel = player.getMessageChannel();
-           playerChannel.send(RoleplayMsg.info(rollMessage.apply(ImmutableMap.of(
+           playerChannel.send(AtherysRoleplay.getInstance().getMessagingFacade().formatInfo(rollMessage.apply(ImmutableMap.of(
                    "player", Text.of(player.getName()),
                    "roll", Text.of(roll),
                    "maximum", Text.of(d)

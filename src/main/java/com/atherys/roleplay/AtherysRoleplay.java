@@ -4,6 +4,7 @@ import com.atherys.core.command.CommandService;
 import com.atherys.roleplay.command.card.MasterCardCommand;
 import com.atherys.roleplay.command.misc.RollCommand;
 import com.atherys.roleplay.facade.CardFacade;
+import com.atherys.roleplay.facade.RoleplayMessagingFacade;
 import com.atherys.roleplay.listeners.PlayerListener;
 import com.atherys.roleplay.service.CardService;
 import com.atherys.roleplay.service.MenuService;
@@ -119,6 +120,10 @@ public class AtherysRoleplay {
         return components.cardFacade;
     }
 
+    public RoleplayMessagingFacade getMessagingFacade() {
+        return components.messagingFacade;
+    }
+
     private static class Components {
         @Inject
         private AtherysRoleplayConfig config;
@@ -131,5 +136,8 @@ public class AtherysRoleplay {
 
         @Inject
         private CardFacade cardFacade;
+
+        @Inject
+        private RoleplayMessagingFacade messagingFacade;
     }
 }

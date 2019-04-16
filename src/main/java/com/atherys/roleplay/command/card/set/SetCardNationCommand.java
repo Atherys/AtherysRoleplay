@@ -4,7 +4,7 @@ import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.AtherysRoleplay;
-import com.atherys.roleplay.RoleplayMsg;
+
 import com.atherys.roleplay.cards.Nation;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
@@ -32,7 +32,7 @@ public class SetCardNationCommand implements ParameterizedCommand {
         Optional<Nation> name = args.getOne("nation");
         name.ifPresent(n -> {
             //CardManager.getInstance().getCard(player).setNationality(n.getName());
-            RoleplayMsg.nationMessage(player, n);
+            AtherysRoleplay.getInstance().getMessagingFacade().nationMessage(player, n);
         });
         return CommandResult.success();
     }

@@ -1,7 +1,6 @@
 package com.atherys.roleplay.menu;
 
 import com.atherys.roleplay.AtherysRoleplay;
-import com.atherys.roleplay.RoleplayMsg;
 import com.atherys.roleplay.cards.Nation;
 import com.mcsimonflash.sponge.teslalibs.inventory.Element;
 import com.mcsimonflash.sponge.teslalibs.inventory.Layout;
@@ -46,7 +45,7 @@ public class Menus {
                 nameItem,
                 action -> {
                     MenuUtils.closeInventory(action);
-                    RoleplayMsg.info(action.getPlayer(), "Enter your character's name.");
+                    AtherysRoleplay.getInstance().getMessagingFacade().info(action.getPlayer(), "Enter your character's name.");
                     MenuUtils.startSession(
                             action.getPlayer(),
                             s -> Sponge.getCommandManager().process(action.getPlayer(), "card name " + s)
@@ -64,7 +63,7 @@ public class Menus {
                 ageItem,
                 action -> {
                     MenuUtils.closeInventory(action);
-                    RoleplayMsg.info(action.getPlayer(), "Enter your character's age.");
+                    AtherysRoleplay.getInstance().getMessagingFacade().info(action.getPlayer(), "Enter your character's age.");
                     MenuUtils.startSession(
                             action.getPlayer(),
                             s -> Sponge.getCommandManager().process(action.getPlayer(), "card age " + s)
@@ -93,7 +92,7 @@ public class Menus {
                 descriptionItem,
                 action -> {
                     MenuUtils.closeInventory(action);
-                    RoleplayMsg.info(action.getPlayer(), "Enter additions to your description.");
+                    AtherysRoleplay.getInstance().getMessagingFacade().info(action.getPlayer(), "Enter additions to your description.");
                     MenuUtils.startSession(
                             action.getPlayer(),
                             s -> Sponge.getCommandManager().process(action.getPlayer(), "card description " + s)
@@ -110,7 +109,7 @@ public class Menus {
                 resetDescriptionItem,
                 action -> {
 //                    AtherysRoleplay.getCardManager().getCard(action.getPlayer()).setDescription("");
-                    RoleplayMsg.info(action.getPlayer(),"Character description reset.");
+                    AtherysRoleplay.getInstance().getMessagingFacade().info(action.getPlayer(),"Character description reset.");
                 }
         );
 
@@ -123,7 +122,7 @@ public class Menus {
                 resetItem,
                 action -> {
   //                  AtherysRoleplay.getCardManager().getCard(action.getPlayer()).resetCard();
-                    RoleplayMsg.info(action.getPlayer(), "Character card reset.");
+                    AtherysRoleplay.getInstance().getMessagingFacade().info(action.getPlayer(), "Character card reset.");
                     action.getPlayer().sendMessage(Text.of(TextColors.DARK_GREEN, "Character card reset."));
                 }
         );
@@ -160,7 +159,7 @@ public class Menus {
                             nationItem,
                             action -> {
       //                          AtherysRoleplay.getCardManager().getCard(action.getPlayer()).setNationality(nation.getName());
-                                RoleplayMsg.nationMessage(action.getPlayer(), nation);
+                                AtherysRoleplay.getInstance().getMessagingFacade().nationMessage(action.getPlayer(), nation);
                             }),
                     index
             );
