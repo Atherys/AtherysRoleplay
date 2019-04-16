@@ -38,7 +38,8 @@ public class AtherysRoleplayConfig extends PluginConfig {
             new Nation("Kilnholdt", TextColors.DARK_GRAY, ItemTypes.GUNPOWDER)
     );
 
-    protected AtherysRoleplayConfig(String directory, String filename) throws IOException {
-        super(directory, filename);
+    protected AtherysRoleplayConfig() throws IOException {
+        super("config/" + AtherysRoleplay.ID, "config.conf");
+        init();
     }
 }

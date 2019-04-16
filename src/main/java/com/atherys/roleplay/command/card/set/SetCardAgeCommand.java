@@ -21,7 +21,7 @@ import java.util.Optional;
 @Description("Sets the age of your character.")
 public class SetCardAgeCommand implements ParameterizedCommand {
 
-    private static Text errorMessage = Text.of("Your age cannot be more than " + AtherysRoleplay.getConfig().MAXIMUM_AGE + ".");
+    private static Text errorMessage = Text.of("Your age cannot be more than " + AtherysRoleplay.getInstance().getConfig().MAXIMUM_AGE + ".");
 
     @Nonnull
     @Override
@@ -32,7 +32,7 @@ public class SetCardAgeCommand implements ParameterizedCommand {
 
         Optional<Integer> age = args.getOne("age");
         age.ifPresent(a -> {
-            if (a > AtherysRoleplay.getConfig().MAXIMUM_AGE) {
+            if (a > AtherysRoleplay.getInstance().getConfig().MAXIMUM_AGE) {
                 RoleplayMsg.error(player, errorMessage);
             } else if (a < 1) {
                 RoleplayMsg.error(player, "Your age must be greater than 0.");

@@ -5,6 +5,8 @@ import com.atherys.roleplay.cards.CharacterCard;
 import com.atherys.roleplay.persistence.CardRepository;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.spongepowered.api.entity.living.player.User;
+import org.spongepowered.api.service.user.UserStorageService;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -14,6 +16,9 @@ public class CardService {
 
     @Inject
     CardRepository cardRepository;
+
+    @Inject
+    UserStorageService userStorageService;
 
     CardService() {
     }
@@ -32,7 +37,7 @@ public class CardService {
         }
     }
 
-    public void println() {
-        AtherysRoleplay.getLogger().info("Heh");
+    public CharacterCard getOrCreate(User user) {
+        return getOrCreate(user.getUniqueId(), user.getName());
     }
 }

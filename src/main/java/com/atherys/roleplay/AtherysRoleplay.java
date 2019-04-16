@@ -19,8 +19,6 @@ import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 
-import java.io.IOException;
-
 @Plugin( id = AtherysRoleplay.ID, name = AtherysRoleplay.NAME, description = AtherysRoleplay.DESCRIPTION, version = AtherysRoleplay.VERSION )
 public class AtherysRoleplay {
     static final String ID = "atherysroleplay";
@@ -37,8 +35,6 @@ public class AtherysRoleplay {
     @Inject
     private PluginContainer container;
 
-    private static AtherysRoleplayConfig config;
-
     @Inject
     private Injector spongeInjector;
 
@@ -51,22 +47,10 @@ public class AtherysRoleplay {
 
     private void init () {
         instance = this;
+
         components = new Components();
         townsInjector = spongeInjector.createChildInjector(new AtherysRoleplayModule());
         townsInjector.injectMembers(components);
-
-        try {
-            config = new AtherysRoleplayConfig(getDirectory(), "config.conf");
-            config.init();
-        } catch(IOException e) {
-            init = false;
-            e.printStackTrace();
-            return;
-        }
-
-        if (config.IS_DEFAULT) {
-            logger.error("The AtherysRoleplay config is set to default. Edit the default config settings and change 'isDefault' to false.");
-        }
 
         init = true;
     }
@@ -107,10 +91,6 @@ public class AtherysRoleplay {
         return getInstance().logger();
     }
 
-    public static AtherysRoleplayConfig getConfig(){
-        return config;
-    }
-
     public static Game getGame() {
         return getInstance().game;
     }
@@ -119,12 +99,12 @@ public class AtherysRoleplay {
         return logger;
     }
 
-    public String getDirectory(){
-        return "config/" + ID;
-    }
-
     public static PluginContainer getContainer() {
         return getInstance().container;
+    }
+
+    public AtherysRoleplayConfig getConfig() {
+        return components.config;
     }
 
     public MenuService getMenuService() {
@@ -140,6 +120,9 @@ public class AtherysRoleplay {
     }
 
     private static class Components {
+        @Inject
+        private AtherysRoleplayConfig config;
+
         @Inject
         private MenuService menuService;
 

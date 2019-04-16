@@ -21,7 +21,7 @@ import java.util.Optional;
 @Description("Sets the nickname of your character.")
 public class SetCardNicknameCommand implements ParameterizedCommand {
 
-    private static String errorMessage = "Your character's nickname cannot be more than " + AtherysRoleplay.getConfig().MAXIMUM_NICK_LENGTH + " characters.";
+    private static String errorMessage = "Your character's nickname cannot be more than " + AtherysRoleplay.getInstance().getConfig().MAXIMUM_NICK_LENGTH + " characters.";
 
     @Nonnull
     @Override

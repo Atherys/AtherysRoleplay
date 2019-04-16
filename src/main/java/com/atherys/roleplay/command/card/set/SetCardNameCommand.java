@@ -29,8 +29,8 @@ public class SetCardNameCommand implements ParameterizedCommand {
         Player player = (Player) src;
         Optional<String> name = args.getOne("name");
         name.ifPresent(n -> {
-            if(n.length() > AtherysRoleplay.getConfig().MAXIMUM_NAME_LENGTH) {
-                RoleplayMsg.error(player, "Your name must be under " + AtherysRoleplay.getConfig().MAXIMUM_NAME_LENGTH);
+            if(n.length() > AtherysRoleplay.getInstance().getConfig().MAXIMUM_NAME_LENGTH) {
+                RoleplayMsg.error(player, "Your name must be under " + AtherysRoleplay.getInstance().getConfig().MAXIMUM_NAME_LENGTH);
             } else {
                 //CardManager.getInstance().getCard(player).setName(n);
                 RoleplayMsg.info(player, "Character name set.");

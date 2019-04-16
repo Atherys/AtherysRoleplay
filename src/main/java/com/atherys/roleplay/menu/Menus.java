@@ -149,7 +149,7 @@ public class Menus {
         Layout.Builder layout = Layout.builder();
         int index = 0;
 
-        for (Nation nation: AtherysRoleplay.getConfig().NATIONS) {
+        for (Nation nation: AtherysRoleplay.getInstance().getConfig().NATIONS) {
             ItemStack nationItem = ItemStack.builder()
                     .itemType(nation.getItemType())
                     .add(Keys.DISPLAY_NAME, Text.of(nation.getColor(), nation.getName()))
