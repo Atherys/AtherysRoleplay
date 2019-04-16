@@ -1,6 +1,7 @@
 package com.atherys.roleplay.command.card.set;
 
 import com.atherys.core.command.ParameterizedCommand;
+import com.atherys.core.command.PlayerCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
 
@@ -19,19 +20,12 @@ import java.util.Optional;
 
 @Aliases("description")
 @Description("Sets the description of your character. Subsequent uses will add to your description.")
-public class SetCardDescriptionCommand implements ParameterizedCommand {
+public class SetCardDescriptionCommand implements ParameterizedCommand, PlayerCommand {
 
     @Nonnull
     @Override
-    public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
-        if(!(src instanceof Player)) return CommandResult.empty();
-        Player player = (Player) src;
-        Optional<String> description = args.getOne("description");
-        description.ifPresent(desc -> {
-            AtherysRoleplay.getInstance().getMessagingFacade().info(player, "Character description updated.");
-            //CardManager.getInstance().getCard(player).addDescription(" " + desc);
-        });
-
+    public CommandResult execute(@Nonnull Player source, @Nonnull CommandContext args) {
+        AtherysRoleplay.getInstance().getCardFacade().addToCardDescription(source, args.<String>getOne("description").orElse(""));
         return CommandResult.success();
     }
 

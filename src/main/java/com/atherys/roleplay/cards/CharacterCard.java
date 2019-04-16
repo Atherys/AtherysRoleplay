@@ -2,6 +2,7 @@ package com.atherys.roleplay.cards;
 
 import com.atherys.core.db.Identifiable;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.BookView;
 
 import javax.persistence.Id;
 import java.util.UUID;
@@ -84,6 +85,10 @@ public class CharacterCard implements Identifiable<UUID> {
 
     public String getDescription() {
         return description;
+    }
+
+    public BookView toView() {
+        return new CardView(this).toBookView();
     }
 
     @Override

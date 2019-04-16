@@ -37,18 +37,11 @@ public class SetCardNationCommand implements ParameterizedCommand {
         return CommandResult.success();
     }
 
-    private static HashMap<String, Nation> getChoices(){
-        HashMap<String, Nation> choices = new HashMap<>();
-        AtherysRoleplay.getInstance().getConfig().NATIONS.forEach(nation -> choices.put(nation.getName(), nation));
-        return choices;
-    }
-
-    private HashMap<String, Nation> choices = getChoices();
-
     @Override
     public CommandElement[] getArguments() {
         return new CommandElement[]{
-                GenericArguments.choices(Text.of("nation"), choices)
+                GenericArguments.choices(
+                        Text.of("nation"), AtherysRoleplay.getInstance().getCardFacade().getChoices())
         };
     }
 }

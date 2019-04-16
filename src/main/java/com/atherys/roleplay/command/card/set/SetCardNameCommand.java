@@ -1,6 +1,7 @@
 package com.atherys.roleplay.command.card.set;
 
 import com.atherys.core.command.ParameterizedCommand;
+import com.atherys.core.command.PlayerCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.AtherysRoleplay;
@@ -19,23 +20,12 @@ import java.util.Optional;
 
 @Aliases("name")
 @Description("Sets the name your character.")
-public class SetCardNameCommand implements ParameterizedCommand {
+public class SetCardNameCommand implements ParameterizedCommand, PlayerCommand {
 
     @Nonnull
     @Override
-    public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
-        if(!(src instanceof Player)) return CommandResult.empty();
-
-        Player player = (Player) src;
-        Optional<String> name = args.getOne("name");
-        name.ifPresent(n -> {
-            if(n.length() > AtherysRoleplay.getInstance().getConfig().MAXIMUM_NAME_LENGTH) {
-                AtherysRoleplay.getInstance().getMessagingFacade().error(player, "Your name must be under " + AtherysRoleplay.getInstance().getConfig().MAXIMUM_NAME_LENGTH);
-            } else {
-                //CardManager.getInstance().getCard(player).setName(n);
-                AtherysRoleplay.getInstance().getMessagingFacade().info(player, "Character name set.");
-            }
-        });
+    public CommandResult execute(@Nonnull Player source, @Nonnull CommandContext args) throws CommandException {
+        AtherysRoleplay.getInstance().getCardFacade().setCardName(source, args.<String>getOne("name").orElse(""));
         return CommandResult.success();
     }
 

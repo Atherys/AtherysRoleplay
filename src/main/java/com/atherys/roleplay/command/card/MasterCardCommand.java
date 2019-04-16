@@ -18,8 +18,7 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 
 @Description("Displays list of command.")
-@Children({ CreateCardCommand.class,
-            ShowCardCommand.class,
+@Children({ ShowCardCommand.class,
             SetCardDescriptionCommand.class,
             SetCardAgeCommand.class,
             SetCardNameCommand.class,
@@ -33,7 +32,6 @@ public class MasterCardCommand implements CommandExecutor {
         "Character Cards",
         Arrays.asList(MasterCardCommand.class.getAnnotation(Children.class).value()),
         Arrays.asList(
-            "/card create",
             "/card show",
             "/card description <desc>",
             "/card age <age>",

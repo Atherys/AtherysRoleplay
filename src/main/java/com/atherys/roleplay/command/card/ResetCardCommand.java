@@ -1,5 +1,6 @@
 package com.atherys.roleplay.command.card;
 
+import com.atherys.core.command.PlayerCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.AtherysRoleplay;
@@ -14,16 +15,12 @@ import javax.annotation.Nonnull;
 
 @Aliases("reset")
 @Description("Resets all fields of your character card.")
-public class ResetCardCommand implements CommandExecutor {
+public class ResetCardCommand implements PlayerCommand {
+
     @Nonnull
     @Override
-    public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
-        if(!(src instanceof Player)) return CommandResult.empty();
-
-        Player player = (Player) src;
-        //CharacterCard card = CardManager.getInstance().getCard(player);
-        //card.resetCard();
-        AtherysRoleplay.getInstance().getMessagingFacade().info(player, "Character card reset.");
-        return CommandResult.empty();
+    public CommandResult execute(@Nonnull Player source, @Nonnull CommandContext args) throws CommandException {
+        AtherysRoleplay.getInstance().getCardFacade().resetCard(source);
+        return CommandResult.success();
     }
 }

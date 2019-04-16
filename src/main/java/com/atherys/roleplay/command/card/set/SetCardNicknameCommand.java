@@ -1,6 +1,7 @@
 package com.atherys.roleplay.command.card.set;
 
 import com.atherys.core.command.ParameterizedCommand;
+import com.atherys.core.command.PlayerCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.AtherysRoleplay;
@@ -19,27 +20,13 @@ import java.util.Optional;
 
 @Aliases("nickname")
 @Description("Sets the nickname of your character.")
-public class SetCardNicknameCommand implements ParameterizedCommand {
-
-    private static String errorMessage = "Your character's nickname cannot be more than " + AtherysRoleplay.getInstance().getConfig().MAXIMUM_NICK_LENGTH + " characters.";
+public class SetCardNicknameCommand implements ParameterizedCommand, PlayerCommand {
 
     @Nonnull
     @Override
-    public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
-        if(!(src instanceof Player)) return CommandResult.empty();
-
-        Player player = (Player) src;
-        Optional<String> nickname = args.getOne("nick");
-        nickname.ifPresent(nick -> {
-            if (nick.length() > 16) {
-                AtherysRoleplay.getInstance().getMessagingFacade().error(player, errorMessage);
-            } else {
-                AtherysRoleplay.getInstance().getMessagingFacade().error(player, "Character nickname set. This name will appear in roleplay chats.");
-                //AtherysRoleplay.getCardManager().getCard(player).setNickname(nick);
-            }
-        });
+    public CommandResult execute(@Nonnull Player source, @Nonnull CommandContext args) throws CommandException {
+        AtherysRoleplay.getInstance().getCardFacade().setCardNickname(source, args.<String>getOne("nick").orElse(""));
         return CommandResult.success();
-
     }
 
     @Override

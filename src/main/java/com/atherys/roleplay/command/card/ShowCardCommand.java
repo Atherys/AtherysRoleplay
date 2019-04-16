@@ -1,7 +1,9 @@
 package com.atherys.roleplay.command.card;
 
+import com.atherys.core.command.PlayerCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
+import com.atherys.roleplay.AtherysRoleplay;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -13,14 +15,12 @@ import javax.annotation.Nonnull;
 
 @Aliases("show")
 @Description("Displays your own character card.")
-public class ShowCardCommand implements CommandExecutor {
+public class ShowCardCommand implements PlayerCommand {
 
     @Nonnull
     @Override
-    public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
-        if(!(src instanceof Player)) return CommandResult.empty();
-        Player player = ((Player) src).getPlayer().get();
-        //CardManager.getInstance().getCard(player).createView().show(player);
+    public CommandResult execute(@Nonnull Player source, @Nonnull CommandContext args) {
+        AtherysRoleplay.getInstance().getCardFacade().showCard(source);
         return CommandResult.success();
     }
 }
