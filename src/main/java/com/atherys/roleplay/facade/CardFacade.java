@@ -35,6 +35,7 @@ public class CardFacade {
 
     public void resetCard(Player source) {
         cardService.resetCard(cardService.getOrCreate(source));
+        messagingFacade.info(source, "Card reset.");
     }
 
     public void showCard(Player source) {
@@ -45,7 +46,7 @@ public class CardFacade {
     public void setCardAge(Player source, int age) throws CommandException {
         if (age <= config.MAXIMUM_AGE) {
             cardService.setCardAge(cardService.getOrCreate(source), age);
-            AtherysRoleplay.getInstance().getMessagingFacade().info(source, "Character age set.");
+            messagingFacade.info(source, "Character age set.");
         } else if (age < 1) {
             throw new CommandException(Text.of("Age of " + age + " is less than 1."));
         } else {
@@ -55,12 +56,12 @@ public class CardFacade {
 
     public void setCardDescription(Player source, String description) {
         cardService.setCardDescription(cardService.getOrCreate(source), description);
-        AtherysRoleplay.getInstance().getMessagingFacade().info(source, "Character description set.");
+        messagingFacade.info(source, "Character description set.");
     }
 
     public void addToCardDescription(Player source, String description) {
         cardService.addToCardDescription(cardService.getOrCreate(source), description);
-        AtherysRoleplay.getInstance().getMessagingFacade().info(source, "Character description updated.");
+        messagingFacade.info(source, "Character description updated.");
     }
 
     public void setCardNation(Player source, Nation nation) {
@@ -71,7 +72,7 @@ public class CardFacade {
     public void setCardName(Player source, String name) throws CommandException {
         if (name.length() <= config.MAXIMUM_NAME_LENGTH) {
             cardService.setCardName(cardService.getOrCreate(source), name);
-            AtherysRoleplay.getInstance().getMessagingFacade().info(source, "Character name set.");
+            messagingFacade.info(source, "Character name set.");
         } else {
             throw new CommandException(Text.of("Name " + name + " is longer than maximum name length of " + config.MAXIMUM_NAME_LENGTH + "."));
         }
@@ -80,7 +81,7 @@ public class CardFacade {
     public void setCardNickname(Player source, String nick) throws CommandException {
         if (nick.length() <= config.MAXIMUM_NICK_LENGTH) {
             cardService.setCardNickname(cardService.getOrCreate(source), nick);
-            AtherysRoleplay.getInstance().getMessagingFacade().info(source, "Character nickname set.");
+            messagingFacade.info(source, "Character nickname set.");
         } else {
             throw new CommandException(Text.of("Nickname " + nick + " is longer than maximum nickname length of " + config.MAXIMUM_NICK_LENGTH + "."));
         }
