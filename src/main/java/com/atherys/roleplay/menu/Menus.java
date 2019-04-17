@@ -12,7 +12,6 @@ import org.spongepowered.api.item.inventory.InventoryArchetype;
 import org.spongepowered.api.item.inventory.InventoryArchetypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
 
 import java.util.Collections;
 
@@ -30,7 +29,7 @@ public class Menus {
         Element view = Element.of(
                 viewItem,
                 action -> {
-//                    AtherysRoleplay.getCardManager().getCard(action.getPlayer()).createView().show(action.getPlayer());
+                    AtherysRoleplay.getInstance().getCardFacade().showCard(action.getPlayer());
                     AtherysRoleplay.getInstance().getMenuService().startBookView(action.getPlayer());
                 }
         );
@@ -95,7 +94,7 @@ public class Menus {
                     AtherysRoleplay.getInstance().getMessagingFacade().info(action.getPlayer(), "Enter additions to your description.");
                     MenuUtils.startSession(
                             action.getPlayer(),
-                            s -> Sponge.getCommandManager().process(action.getPlayer(), "card description " + s)
+                            s -> AtherysRoleplay.getInstance().getCardFacade().addToCardDescription(action.getPlayer(), s)
                     );
                 }
         );
@@ -107,10 +106,7 @@ public class Menus {
 
         Element resetDescription = Element.of(
                 resetDescriptionItem,
-                action -> {
-//                    AtherysRoleplay.getCardManager().getCard(action.getPlayer()).setDescription("");
-                    AtherysRoleplay.getInstance().getMessagingFacade().info(action.getPlayer(),"Character description reset.");
-                }
+                action -> AtherysRoleplay.getInstance().getCardFacade().setCardDescription(action.getPlayer(), "")
         );
 
         ItemStack resetItem = ItemStack.builder()
@@ -120,11 +116,7 @@ public class Menus {
 
         Element reset = Element.of(
                 resetItem,
-                action -> {
-  //                  AtherysRoleplay.getCardManager().getCard(action.getPlayer()).resetCard();
-                    AtherysRoleplay.getInstance().getMessagingFacade().info(action.getPlayer(), "Character card reset.");
-                    action.getPlayer().sendMessage(Text.of(TextColors.DARK_GREEN, "Character card reset."));
-                }
+                action -> AtherysRoleplay.getInstance().getCardFacade().resetCard(action.getPlayer())
         );
 
         InventoryArchetype cardInventory = InventoryArchetype.builder()
@@ -148,7 +140,7 @@ public class Menus {
         Layout.Builder layout = Layout.builder();
         int index = 0;
 
-        for (Nation nation: AtherysRoleplay.getInstance().getConfig().NATIONS) {
+        for (Nation nation : AtherysRoleplay.getInstance().getConfig().NATIONS) {
             ItemStack nationItem = ItemStack.builder()
                     .itemType(nation.getItemType())
                     .add(Keys.DISPLAY_NAME, Text.of(nation.getColor(), nation.getName()))
@@ -157,10 +149,7 @@ public class Menus {
             layout.set(
                     Element.of(
                             nationItem,
-                            action -> {
-      //                          AtherysRoleplay.getCardManager().getCard(action.getPlayer()).setNationality(nation.getName());
-                                AtherysRoleplay.getInstance().getMessagingFacade().nationMessage(action.getPlayer(), nation);
-                            }),
+                            action -> AtherysRoleplay.getInstance().getCardFacade().setCardNation(action.getPlayer(), nation)),
                     index
             );
             index++;

@@ -10,13 +10,13 @@ import org.spongepowered.api.text.format.TextColors;
 @ConfigSerializable
 public class Nation {
 
-    @Setting(value="itemRepresentation")
+    @Setting(value = "itemRepresentation")
     private ItemType itemType;
 
-    @Setting(value="nationColor")
+    @Setting(value = "nationColor")
     private TextColor color;
 
-    @Setting(value="nationName")
+    @Setting(value = "nationName")
     private String name;
 
     public Nation(String name, TextColor color, ItemType itemType) {

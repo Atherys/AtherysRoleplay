@@ -2,10 +2,10 @@ package com.atherys.roleplay;
 
 import com.atherys.roleplay.facade.CardFacade;
 import com.atherys.roleplay.facade.RoleplayMessagingFacade;
+import com.atherys.roleplay.persistence.CardRepository;
 import com.atherys.roleplay.persistence.RoleplayCache;
 import com.atherys.roleplay.service.CardService;
 import com.atherys.roleplay.service.MenuService;
-import com.atherys.roleplay.persistence.CardRepository;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import org.spongepowered.api.Sponge;

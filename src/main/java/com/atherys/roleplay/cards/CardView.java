@@ -8,11 +8,11 @@ import org.spongepowered.api.text.format.TextColors;
 public class CardView {
     private CharacterCard card;
 
-    public CardView(CharacterCard card){
+    public CardView(CharacterCard card) {
         this.card = card;
     }
 
-    public BookView toBookView(){
+    public BookView toBookView() {
         Text playerText = Text.builder()
                 .append(Text.of(TextColors.GOLD, "Player: "))
                 .append(Text.of(TextColors.DARK_GREEN, card.getPlayerName()))
@@ -58,7 +58,7 @@ public class CardView {
                 .build();
     }
 
-    public void show(Player player){
+    public void show(Player player) {
         player.sendBookView(toBookView());
     }
 }

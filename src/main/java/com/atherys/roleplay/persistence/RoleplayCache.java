@@ -19,6 +19,14 @@ public class RoleplayCache {
     public RoleplayCache() {
     }
 
+    public void initCache() {
+        cardRepository.initCache();
+    }
+
+    public void flushCache() {
+        cardRepository.flushCache();
+    }
+
     public Cache<CharacterCard, UUID> getCardCache() {
         return cardCache;
     }

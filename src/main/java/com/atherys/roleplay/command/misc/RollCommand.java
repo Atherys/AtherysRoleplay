@@ -2,7 +2,6 @@ package com.atherys.roleplay.command.misc;
 
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
-
 import com.atherys.roleplay.AtherysRoleplay;
 import com.google.common.collect.ImmutableMap;
 import org.spongepowered.api.command.CommandException;
@@ -35,46 +34,46 @@ public class RollCommand implements ParameterizedCommand {
     @Nonnull
     @Override
     public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
-       if(!(src instanceof Player)) return CommandResult.empty();
+        if (!(src instanceof Player)) return CommandResult.empty();
 
-       Player player = (Player) src;
-       Optional<String> dice = args.getOne("dice");
-       dice.ifPresent(d ->{
-           Random rand = new Random();
-           int roll = 0;
-           String[] numbers = d.split("d");
+        Player player = (Player) src;
+        Optional<String> dice = args.getOne("dice");
+        dice.ifPresent(d -> {
+            Random rand = new Random();
+            int roll = 0;
+            String[] numbers = d.split("d");
 
-           // If the argument is in the format XdY
-           if (numbers.length == 2 && ! numbers[0].equals("")) {
-               int times = Integer.parseInt(numbers[0]);
-               int die = Integer.parseInt(numbers[1]);
+            // If the argument is in the format XdY
+            if (numbers.length == 2 && !numbers[0].equals("")) {
+                int times = Integer.parseInt(numbers[0]);
+                int die = Integer.parseInt(numbers[1]);
 
-               for (int i = 0; i < times; i++) {
-                   roll += rand.nextInt(die) + 1;
-               }
+                for (int i = 0; i < times; i++) {
+                    roll += rand.nextInt(die) + 1;
+                }
 
-           // If the argument is in the format dX
-           } else if(numbers.length == 2) {
-               roll = rand.nextInt(Integer.parseInt(d.substring(1))) + 1;
+                // If the argument is in the format dX
+            } else if (numbers.length == 2) {
+                roll = rand.nextInt(Integer.parseInt(d.substring(1))) + 1;
 
-           // Otherwise, check if it's just a number.
-           } else {
-               try {
-                   roll = rand.nextInt(Integer.parseInt(d)) + 1;
-               } catch (NumberFormatException e) {
-                   AtherysRoleplay.getInstance().getMessagingFacade().error(player, "Roll argument must be a number, or in the format 'dX or YdX.");
-                   return;
-               }
-           }
+                // Otherwise, check if it's just a number.
+            } else {
+                try {
+                    roll = rand.nextInt(Integer.parseInt(d)) + 1;
+                } catch (NumberFormatException e) {
+                    AtherysRoleplay.getInstance().getMessagingFacade().error(player, "Roll argument must be a number, or in the format 'dX or YdX.");
+                    return;
+                }
+            }
 
-           MessageChannel playerChannel = player.getMessageChannel();
-           playerChannel.send(AtherysRoleplay.getInstance().getMessagingFacade().formatInfo(rollMessage.apply(ImmutableMap.of(
-                   "player", Text.of(player.getName()),
-                   "roll", Text.of(roll),
-                   "maximum", Text.of(d)
-           )).build()));
-       });
-       return CommandResult.success();
+            MessageChannel playerChannel = player.getMessageChannel();
+            playerChannel.send(AtherysRoleplay.getInstance().getMessagingFacade().formatInfo(rollMessage.apply(ImmutableMap.of(
+                    "player", Text.of(player.getName()),
+                    "roll", Text.of(roll),
+                    "maximum", Text.of(d)
+            )).build()));
+        });
+        return CommandResult.success();
     }
 
     @Override

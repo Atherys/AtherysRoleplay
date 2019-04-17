@@ -1,6 +1,5 @@
 package com.atherys.roleplay.service;
 
-import com.atherys.roleplay.AtherysRoleplay;
 import com.atherys.roleplay.cards.CharacterCard;
 import com.atherys.roleplay.persistence.CardRepository;
 import com.google.inject.Inject;

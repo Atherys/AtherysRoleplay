@@ -34,7 +34,7 @@ public class AtherysRoleplayConfig extends PluginConfig {
             new Nation("Dalkun-Tir", TextColors.GOLD, ItemTypes.SANDSTONE),
             new Nation("Atvoria", TextColors.DARK_PURPLE, ItemTypes.WRITABLE_BOOK),
             new Nation("Gennaian Isles", TextColors.WHITE, ItemTypes.QUARTZ_STAIRS),
-            new Nation("Daidama", TextColors.DARK_GREEN , ItemTypes.VINE),
+            new Nation("Daidama", TextColors.DARK_GREEN, ItemTypes.VINE),
             new Nation("Kilnholdt", TextColors.DARK_GRAY, ItemTypes.GUNPOWDER)
     );
 

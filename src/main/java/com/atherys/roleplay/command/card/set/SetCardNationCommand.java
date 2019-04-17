@@ -1,14 +1,13 @@
 package com.atherys.roleplay.command.card.set;
 
 import com.atherys.core.command.ParameterizedCommand;
+import com.atherys.core.command.PlayerCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
 import com.atherys.roleplay.AtherysRoleplay;
-
 import com.atherys.roleplay.cards.Nation;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.args.CommandElement;
 import org.spongepowered.api.command.args.GenericArguments;
@@ -16,24 +15,15 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Optional;
 
 @Aliases("nation")
 @Description("Sets the nation of your character.")
-public class SetCardNationCommand implements ParameterizedCommand {
+public class SetCardNationCommand implements ParameterizedCommand, PlayerCommand {
 
     @Nonnull
     @Override
-    public CommandResult execute(@Nonnull CommandSource src, @Nonnull CommandContext args) throws CommandException {
-        if(!(src instanceof Player)) return CommandResult.empty();
-
-        Player player = (Player) src;
-        Optional<Nation> name = args.getOne("nation");
-        name.ifPresent(n -> {
-            //CardManager.getInstance().getCard(player).setNationality(n.getName());
-            AtherysRoleplay.getInstance().getMessagingFacade().nationMessage(player, n);
-        });
+    public CommandResult execute(@Nonnull Player source, @Nonnull CommandContext args) throws CommandException {
+        AtherysRoleplay.getInstance().getCardFacade().setCardNation(source, args.<Nation>getOne("nation").orElse(null));
         return CommandResult.success();
     }
 

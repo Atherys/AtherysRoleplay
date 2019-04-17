@@ -1,7 +1,6 @@
 package com.atherys.roleplay.persistence;
 
 import com.atherys.core.db.CachedHibernateRepository;
-import com.atherys.roleplay.AtherysRoleplay;
 import com.atherys.roleplay.cards.CharacterCard;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -18,10 +17,5 @@ public class CardRepository extends CachedHibernateRepository<CharacterCard, UUI
         super(CharacterCard.class);
         super.cache = cache.getCardCache();
         this.cache = cache;
-    }
-
-    @Override
-    public void initCache() {
-        cache.getCardCache().getAll().forEach(card -> AtherysRoleplay.getLogger().info(card.getName()));
     }
 }

@@ -1,11 +1,15 @@
 package com.atherys.roleplay;
 
 import com.atherys.core.command.CommandService;
+import com.atherys.core.event.AtherysHibernateConfigurationEvent;
+import com.atherys.core.event.AtherysHibernateInitializedEvent;
+import com.atherys.roleplay.cards.CharacterCard;
 import com.atherys.roleplay.command.card.MasterCardCommand;
 import com.atherys.roleplay.command.misc.RollCommand;
 import com.atherys.roleplay.facade.CardFacade;
 import com.atherys.roleplay.facade.RoleplayMessagingFacade;
 import com.atherys.roleplay.listeners.PlayerListener;
+import com.atherys.roleplay.persistence.RoleplayCache;
 import com.atherys.roleplay.service.CardService;
 import com.atherys.roleplay.service.MenuService;
 import com.google.inject.Inject;
@@ -20,7 +24,7 @@ import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 
-@Plugin( id = AtherysRoleplay.ID, name = AtherysRoleplay.NAME, description = AtherysRoleplay.DESCRIPTION, version = AtherysRoleplay.VERSION )
+@Plugin(id = AtherysRoleplay.ID, name = AtherysRoleplay.NAME, description = AtherysRoleplay.DESCRIPTION, version = AtherysRoleplay.VERSION)
 public class AtherysRoleplay {
     static final String ID = "atherysroleplay";
     static final String NAME = "A'therys Roleplay";
@@ -46,7 +50,7 @@ public class AtherysRoleplay {
     private static AtherysRoleplay instance;
     private static boolean init = false;
 
-    private void init () {
+    private void init() {
         instance = this;
 
         components = new Components();
@@ -57,6 +61,7 @@ public class AtherysRoleplay {
     }
 
     private void start() {
+        getCache().initCache();
         Sponge.getEventManager().registerListeners(this, new PlayerListener());
         try {
             CommandService.getInstance().register(new MasterCardCommand(), this);
@@ -67,21 +72,33 @@ public class AtherysRoleplay {
     }
 
     private void stop() {
+        getCache().flushCache();
     }
 
     @Listener
-    public void onInit (GameInitializationEvent event) {
+    public void onHibernateInit(AtherysHibernateInitializedEvent event) {
         init();
     }
 
     @Listener
-    public void onStart (GameStartingServerEvent event) {
-        if ( init ) start();
+    public void onHibernateConfiguration(AtherysHibernateConfigurationEvent event) {
+        event.registerEntity(CharacterCard.class);
+    }
+
+
+    @Listener
+    public void onInit(GameInitializationEvent event) {
+        init();
     }
 
     @Listener
-    public void onStop (GameStoppingServerEvent event) {
-        if ( init ) stop();
+    public void onStart(GameStartingServerEvent event) {
+        if (init) start();
+    }
+
+    @Listener
+    public void onStop(GameStoppingServerEvent event) {
+        if (init) stop();
     }
 
     public static AtherysRoleplay getInstance() {
@@ -124,6 +141,10 @@ public class AtherysRoleplay {
         return components.messagingFacade;
     }
 
+    public RoleplayCache getCache() {
+        return components.roleplayCache;
+    }
+
     private static class Components {
         @Inject
         private AtherysRoleplayConfig config;
@@ -136,6 +157,9 @@ public class AtherysRoleplay {
 
         @Inject
         private CardFacade cardFacade;
+
+        @Inject
+        private RoleplayCache roleplayCache;
 
         @Inject
         private RoleplayMessagingFacade messagingFacade;

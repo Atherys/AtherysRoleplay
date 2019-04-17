@@ -13,8 +13,8 @@ import org.spongepowered.api.event.message.MessageChannelEvent;
 public class PlayerListener {
 
     @Listener
-    public void onPlayerShiftClick(InteractEntityEvent.Secondary event, @Root Player player){
-        if(!(event.getTargetEntity() instanceof Player)) return;
+    public void onPlayerShiftClick(InteractEntityEvent.Secondary event, @Root Player player) {
+        if (!(event.getTargetEntity() instanceof Player)) return;
 
         Player target = (Player) event.getTargetEntity();
         player.get(Keys.IS_SNEAKING).ifPresent(key -> {

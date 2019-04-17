@@ -1,4 +1,4 @@
-package com.atherys.roleplay.command.card;
+package com.atherys.roleplay.command.card.set;
 
 import com.atherys.core.command.PlayerCommand;
 import com.atherys.core.command.annotation.Aliases;
@@ -10,14 +10,14 @@ import org.spongepowered.api.entity.living.player.Player;
 
 import javax.annotation.Nonnull;
 
-@Aliases("show")
-@Description("Displays your own character card.")
-public class ShowCardCommand implements PlayerCommand {
+@Aliases("description")
+@Description("Resets your description.")
+public class ResetCardDescriptionCommand implements PlayerCommand {
 
     @Nonnull
     @Override
     public CommandResult execute(@Nonnull Player source, @Nonnull CommandContext args) {
-        AtherysRoleplay.getInstance().getCardFacade().showCard(source);
+        AtherysRoleplay.getInstance().getCardFacade().setCardDescription(source, "");
         return CommandResult.success();
     }
 }

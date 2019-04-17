@@ -4,9 +4,11 @@ import com.atherys.core.db.Identifiable;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.BookView;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.UUID;
 
+@Entity
 public class CharacterCard implements Identifiable<UUID> {
 
     private String age;
@@ -19,7 +21,7 @@ public class CharacterCard implements Identifiable<UUID> {
     @Id
     private UUID player;
 
-    public void resetCard(){
+    public void resetCard() {
         this.age = "";
         this.description = "";
         this.name = "";
@@ -27,16 +29,19 @@ public class CharacterCard implements Identifiable<UUID> {
         this.nickname = "";
     }
 
-    public CharacterCard(UUID player, String playerName){
+    public CharacterCard(UUID player, String playerName) {
         resetCard();
         this.player = player;
         this.playerName = playerName;
     }
 
-    public CharacterCard(Player player, String playerName){
+    public CharacterCard(Player player, String playerName) {
         resetCard();
         this.player = player.getUniqueId();
         this.playerName = playerName;
+    }
+
+    CharacterCard() {
     }
 
     public void setNationality(String nationality) {
@@ -51,7 +56,7 @@ public class CharacterCard implements Identifiable<UUID> {
         this.description = this.description + description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -59,7 +64,7 @@ public class CharacterCard implements Identifiable<UUID> {
         this.name = name;
     }
 
-    public void setNickname(String nickname){
+    public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
@@ -71,11 +76,11 @@ public class CharacterCard implements Identifiable<UUID> {
         return playerName;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getNickname(){
+    public String getNickname() {
         return nickname;
     }
 
