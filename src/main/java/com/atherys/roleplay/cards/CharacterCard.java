@@ -1,13 +1,15 @@
 package com.atherys.roleplay.cards;
 
-import com.atherys.core.database.api.DBObject;
-import com.atherys.core.views.View;
-import com.atherys.core.views.Viewable;
+import com.atherys.core.db.Identifiable;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.BookView;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.UUID;
 
-public class CharacterCard implements DBObject, Viewable {
+@Entity
+public class CharacterCard implements Identifiable<UUID> {
 
     private String age;
     private String description;
@@ -15,9 +17,11 @@ public class CharacterCard implements DBObject, Viewable {
     private String nationality;
     private String playerName;
     private String nickname;
+
+    @Id
     private UUID player;
 
-    public void resetCard(){
+    public void resetCard() {
         this.age = "";
         this.description = "";
         this.name = "";
@@ -25,16 +29,19 @@ public class CharacterCard implements DBObject, Viewable {
         this.nickname = "";
     }
 
-    public CharacterCard(UUID player, String playerName){
+    public CharacterCard(UUID player, String playerName) {
         resetCard();
         this.player = player;
         this.playerName = playerName;
     }
 
-    public CharacterCard(Player player, String playerName){
+    public CharacterCard(Player player, String playerName) {
         resetCard();
         this.player = player.getUniqueId();
         this.playerName = playerName;
+    }
+
+    CharacterCard() {
     }
 
     public void setNationality(String nationality) {
@@ -49,7 +56,7 @@ public class CharacterCard implements DBObject, Viewable {
         this.description = this.description + description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -57,7 +64,7 @@ public class CharacterCard implements DBObject, Viewable {
         this.name = name;
     }
 
-    public void setNickname(String nickname){
+    public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
@@ -69,11 +76,11 @@ public class CharacterCard implements DBObject, Viewable {
         return playerName;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getNickname(){
+    public String getNickname() {
         return nickname;
     }
 
@@ -85,13 +92,12 @@ public class CharacterCard implements DBObject, Viewable {
         return description;
     }
 
-    @Override
-    public View createView() {
-        return new CardView(this);
+    public BookView toView() {
+        return new CardView(this).toBookView();
     }
 
     @Override
-    public UUID getUniqueId() {
+    public UUID getId() {
         return player;
     }
 }

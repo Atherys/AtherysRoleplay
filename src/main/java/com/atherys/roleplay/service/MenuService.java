@@ -1,17 +1,19 @@
-package com.atherys.roleplay.services;
+package com.atherys.roleplay.service;
 
+import com.google.inject.Singleton;
 import org.spongepowered.api.entity.living.player.Player;
 
 import java.util.*;
 import java.util.function.Consumer;
 
+@Singleton
 public class MenuService {
     private Map<UUID, Consumer<String>> sessions = new HashMap<>();
     private List<UUID> bookViewers = new ArrayList<>();
 
     private static MenuService instance = new MenuService();
 
-    private MenuService() {
+    MenuService() {
     }
 
     public static MenuService getInstance() {

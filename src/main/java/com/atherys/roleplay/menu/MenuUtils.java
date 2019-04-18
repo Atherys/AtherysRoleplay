@@ -23,7 +23,7 @@ public class MenuUtils {
     }
 
     public static void startSession(Player player, Consumer<String> submission) {
-        AtherysRoleplay.getMenuService().startSession(player, submission);
+        AtherysRoleplay.getInstance().getMenuService().startSession(player, submission);
     }
 
     public static Element backButton(View previous) {

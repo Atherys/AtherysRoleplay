@@ -13,31 +13,31 @@ import org.spongepowered.api.event.message.MessageChannelEvent;
 public class PlayerListener {
 
     @Listener
-    public void onPlayerShiftClick(InteractEntityEvent.Secondary event, @Root Player player){
-        if(!(event.getTargetEntity() instanceof Player)) return;
+    public void onPlayerShiftClick(InteractEntityEvent.Secondary event, @Root Player player) {
+        if (!(event.getTargetEntity() instanceof Player)) return;
 
         Player target = (Player) event.getTargetEntity();
         player.get(Keys.IS_SNEAKING).ifPresent(key -> {
             if (key) {
-                AtherysRoleplay.getCardManager().getCard(target).createView().show(player);
+                // AtherysRoleplay.getCardManager().getCard(target).createView().show(player);
             }
         });
     }
 
     @Listener
     public void onPlayerChat(MessageChannelEvent.Chat event, @Root Player player) {
-        if (AtherysRoleplay.getMenuService().inSession(player)) {
+        if (AtherysRoleplay.getInstance().getMenuService().inSession(player)) {
             event.setCancelled(true);
-            AtherysRoleplay.getMenuService().endSession(player, event.getRawMessage().toPlain());
+            AtherysRoleplay.getInstance().getMenuService().endSession(player, event.getRawMessage().toPlain());
             Menus.cardMenu.open(player);
         }
     }
 
     @Listener
     public void onPlayerMove(MoveEntityEvent event, @Root Player player) {
-        if (AtherysRoleplay.getMenuService().isViewingBook(player)) {
+        if (AtherysRoleplay.getInstance().getMenuService().isViewingBook(player)) {
             Menus.cardMenu.open(player);
-            AtherysRoleplay.getMenuService().endBookView(player);
+            AtherysRoleplay.getInstance().getMenuService().endBookView(player);
         }
     }
 }

@@ -1,26 +1,29 @@
 package com.atherys.roleplay;
 
 import com.atherys.core.command.CommandService;
-import com.atherys.roleplay.commands.card.MasterCardCommand;
-import com.atherys.roleplay.commands.misc.RollCommand;
+import com.atherys.core.event.AtherysHibernateConfigurationEvent;
+import com.atherys.core.event.AtherysHibernateInitializedEvent;
+import com.atherys.roleplay.cards.CharacterCard;
+import com.atherys.roleplay.command.card.MasterCardCommand;
+import com.atherys.roleplay.command.misc.RollCommand;
+import com.atherys.roleplay.facade.CardFacade;
+import com.atherys.roleplay.facade.RoleplayMessagingFacade;
 import com.atherys.roleplay.listeners.PlayerListener;
-import com.atherys.roleplay.services.MenuService;
+import com.atherys.roleplay.persistence.CardRepository;
+import com.atherys.roleplay.service.CardService;
+import com.atherys.roleplay.service.MenuService;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import org.slf4j.Logger;
-import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.event.game.state.GameStoppingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
-import org.spongepowered.api.text.Text;
 
-import java.io.IOException;
-
-@Plugin( id = AtherysRoleplay.ID, name = AtherysRoleplay.NAME, description = AtherysRoleplay.DESCRIPTION, version = AtherysRoleplay.VERSION )
+@Plugin(id = AtherysRoleplay.ID, name = AtherysRoleplay.NAME, description = AtherysRoleplay.DESCRIPTION, version = AtherysRoleplay.VERSION)
 public class AtherysRoleplay {
     static final String ID = "atherysroleplay";
     static final String NAME = "A'therys Roleplay";
@@ -31,46 +34,30 @@ public class AtherysRoleplay {
     private Logger logger;
 
     @Inject
-    private Game game;
-
-    @Inject
     private PluginContainer container;
 
-    private static AtherysRoleplayConfig config;
+    @Inject
+    private Injector spongeInjector;
+
+    private Components components;
+
+    private Injector townsInjector;
 
     private static AtherysRoleplay instance;
     private static boolean init = false;
 
-    private CardManager cardManager;
-    private MenuService menuService;
-
-    private void init () {
+    private void init() {
         instance = this;
-        try {
-            config = new AtherysRoleplayConfig(getDirectory(), "config.conf");
-            config.init();
-        } catch(IOException e) {
-            init = false;
-            e.printStackTrace();
-            return;
-        }
 
-        if (config.IS_DEFAULT) {
-            logger.error("The AtherysRoleplay config is set to default. Edit the default config settings and change 'isDefault' to false.");
-        }
-
+        components = new Components();
+        townsInjector = spongeInjector.createChildInjector(new AtherysRoleplayModule());
+        townsInjector.injectMembers(components);
+        getCardRepository().initCache();
         init = true;
     }
 
     private void start() {
-        this.cardManager = CardManager.getInstance();
-        cardManager.loadAll();
-
-        getLogger().info(config.NATIONS.get(0).getName());
-        this.menuService = MenuService.getInstance();
-
         Sponge.getEventManager().registerListeners(this, new PlayerListener());
-
         try {
             CommandService.getInstance().register(new MasterCardCommand(), this);
             CommandService.getInstance().register(new RollCommand(), this);
@@ -79,67 +66,89 @@ public class AtherysRoleplay {
         }
     }
 
-
-
     private void stop() {
-        CardManager.getInstance().saveAll();
+        getCardRepository().flushCache();
     }
 
     @Listener
-    public void onInit (GameInitializationEvent event) {
+    public void onHibernateInit(AtherysHibernateInitializedEvent event) {
         init();
     }
 
     @Listener
-    public void onStart (GameStartingServerEvent event) {
-        if ( init ) start();
+    public void onHibernateConfiguration(AtherysHibernateConfigurationEvent event) {
+        event.registerEntity(CharacterCard.class);
+    }
+
+
+    @Listener
+    public void onInit(GameInitializationEvent event) {
+        init();
     }
 
     @Listener
-    public void onStop (GameStoppingServerEvent event) {
-        if ( init ) stop();
+    public void onStart(GameStartingServerEvent event) {
+        if (init) start();
     }
 
-    public static void successMessage(Player player, Text message) {
+    @Listener
+    public void onStop(GameStoppingServerEvent event) {
+        if (init) stop();
     }
 
     public static AtherysRoleplay getInstance() {
         return instance;
     }
 
-    public static Logger getLogger() {
-        return getInstance().logger();
-    }
-
-    public static AtherysRoleplayConfig getConfig(){
-        return config;
-    }
-
-    public static CardManager getCardManager(){
-        return getInstance().cardManager;
-    }
-
-    public static MenuService getMenuService() {
-        return getInstance().menuService;
-    }
-
-    public static Game getGame() {
-        return getInstance().game();
-    }
-
     public Logger logger() {
         return logger;
     }
 
-    public Game game() {
-        return game;
-    }
-
-    public String getDirectory(){
-        return "config/" + ID;
-    }
-
     public static PluginContainer getContainer() {
         return getInstance().container;
+    }
+
+    public AtherysRoleplayConfig getConfig() {
+        return components.config;
+    }
+
+    public MenuService getMenuService() {
+        return components.menuService;
+    }
+
+    public CardService getCardService() {
+        return components.cardService;
+    }
+
+    public CardFacade getCardFacade() {
+        return components.cardFacade;
+    }
+
+    public RoleplayMessagingFacade getMessagingFacade() {
+        return components.messagingFacade;
+    }
+
+    public CardRepository getCardRepository() {
+        return components.cardRepository;
+    }
+
+    private static class Components {
+        @Inject
+        private AtherysRoleplayConfig config;
+
+        @Inject
+        private MenuService menuService;
+
+        @Inject
+        private CardService cardService;
+
+        @Inject
+        private CardFacade cardFacade;
+
+        @Inject
+        private RoleplayMessagingFacade messagingFacade;
+
+        @Inject
+        private CardRepository cardRepository;
     }
 }

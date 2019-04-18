@@ -1,6 +1,5 @@
 package com.atherys.roleplay;
 
-import com.atherys.core.database.mongo.MongoDatabaseConfig;
 import com.atherys.core.utils.PluginConfig;
 import com.atherys.roleplay.cards.Nation;
 import ninja.leaping.configurate.objectmapping.Setting;
@@ -21,9 +20,6 @@ public class AtherysRoleplayConfig extends PluginConfig {
     @Setting("dialog_msg_delay")
     public long DIALOG_MESSAGE_DELAY = 2;
 
-    @Setting("database")
-    public MongoDatabaseConfig DATABASE = new MongoDatabaseConfig();
-
     @Setting("maximum_age")
     public int MAXIMUM_AGE = 150;
 
@@ -38,11 +34,12 @@ public class AtherysRoleplayConfig extends PluginConfig {
             new Nation("Dalkun-Tir", TextColors.GOLD, ItemTypes.SANDSTONE),
             new Nation("Atvoria", TextColors.DARK_PURPLE, ItemTypes.WRITABLE_BOOK),
             new Nation("Gennaian Isles", TextColors.WHITE, ItemTypes.QUARTZ_STAIRS),
-            new Nation("Daidama", TextColors.DARK_GREEN , ItemTypes.VINE),
+            new Nation("Daidama", TextColors.DARK_GREEN, ItemTypes.VINE),
             new Nation("Kilnholdt", TextColors.DARK_GRAY, ItemTypes.GUNPOWDER)
     );
 
-    protected AtherysRoleplayConfig(String directory, String filename) throws IOException {
-        super(directory, filename);
+    protected AtherysRoleplayConfig() throws IOException {
+        super("config/" + AtherysRoleplay.ID, "config.conf");
+        init();
     }
 }
