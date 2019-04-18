@@ -9,13 +9,12 @@ import com.atherys.roleplay.command.misc.RollCommand;
 import com.atherys.roleplay.facade.CardFacade;
 import com.atherys.roleplay.facade.RoleplayMessagingFacade;
 import com.atherys.roleplay.listeners.PlayerListener;
-import com.atherys.roleplay.persistence.RoleplayCache;
+import com.atherys.roleplay.persistence.CardRepository;
 import com.atherys.roleplay.service.CardService;
 import com.atherys.roleplay.service.MenuService;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import org.slf4j.Logger;
-import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
@@ -33,9 +32,6 @@ public class AtherysRoleplay {
 
     @Inject
     private Logger logger;
-
-    @Inject
-    private Game game;
 
     @Inject
     private PluginContainer container;
@@ -56,12 +52,11 @@ public class AtherysRoleplay {
         components = new Components();
         townsInjector = spongeInjector.createChildInjector(new AtherysRoleplayModule());
         townsInjector.injectMembers(components);
-
+        getCardRepository().initCache();
         init = true;
     }
 
     private void start() {
-        getCache().initCache();
         Sponge.getEventManager().registerListeners(this, new PlayerListener());
         try {
             CommandService.getInstance().register(new MasterCardCommand(), this);
@@ -72,7 +67,7 @@ public class AtherysRoleplay {
     }
 
     private void stop() {
-        getCache().flushCache();
+        getCardRepository().flushCache();
     }
 
     @Listener
@@ -105,14 +100,6 @@ public class AtherysRoleplay {
         return instance;
     }
 
-    public static Logger getLogger() {
-        return getInstance().logger();
-    }
-
-    public static Game getGame() {
-        return getInstance().game;
-    }
-
     public Logger logger() {
         return logger;
     }
@@ -141,8 +128,8 @@ public class AtherysRoleplay {
         return components.messagingFacade;
     }
 
-    public RoleplayCache getCache() {
-        return components.roleplayCache;
+    public CardRepository getCardRepository() {
+        return components.cardRepository;
     }
 
     private static class Components {
@@ -159,9 +146,9 @@ public class AtherysRoleplay {
         private CardFacade cardFacade;
 
         @Inject
-        private RoleplayCache roleplayCache;
+        private RoleplayMessagingFacade messagingFacade;
 
         @Inject
-        private RoleplayMessagingFacade messagingFacade;
+        private CardRepository cardRepository;
     }
 }

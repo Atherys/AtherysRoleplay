@@ -1,6 +1,5 @@
 package com.atherys.roleplay.facade;
 
-import com.atherys.roleplay.AtherysRoleplay;
 import com.atherys.roleplay.AtherysRoleplayConfig;
 import com.atherys.roleplay.cards.Nation;
 import com.atherys.roleplay.service.CardService;

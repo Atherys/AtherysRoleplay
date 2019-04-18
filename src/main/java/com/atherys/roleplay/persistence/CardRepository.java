@@ -9,13 +9,8 @@ import java.util.UUID;
 
 @Singleton
 public class CardRepository extends CachedHibernateRepository<CharacterCard, UUID> {
-
-    private RoleplayCache cache;
-
     @Inject
-    protected CardRepository(RoleplayCache cache) {
-        super(CharacterCard.class);
-        super.cache = cache.getCardCache();
-        this.cache = cache;
+    public CardRepository(Class<CharacterCard> persistable) {
+        super(persistable);
     }
 }
