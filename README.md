@@ -6,8 +6,8 @@
   * Dice rolling (`/roll X / dX / XdY`)
   
 ## Planned features
-   * Local RP chats
+   * Fluid RP chat
   
 ## Requirements
   * [AtherysCore](https://github.com/Atherys-Horizons/AtherysCore)
-  * A MongoDB database
+  * A PostgreSQL database
