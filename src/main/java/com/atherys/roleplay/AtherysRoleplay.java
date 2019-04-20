@@ -8,6 +8,7 @@ import com.atherys.roleplay.command.card.MasterCardCommand;
 import com.atherys.roleplay.command.misc.RollCommand;
 import com.atherys.roleplay.facade.CardFacade;
 import com.atherys.roleplay.facade.RoleplayMessagingFacade;
+import com.atherys.roleplay.facade.RollFacade;
 import com.atherys.roleplay.listeners.PlayerListener;
 import com.atherys.roleplay.persistence.CardRepository;
 import com.atherys.roleplay.service.CardService;
@@ -104,10 +105,6 @@ public class AtherysRoleplay {
         return logger;
     }
 
-    public static PluginContainer getContainer() {
-        return getInstance().container;
-    }
-
     public AtherysRoleplayConfig getConfig() {
         return components.config;
     }
@@ -126,6 +123,18 @@ public class AtherysRoleplay {
 
     public RoleplayMessagingFacade getMessagingFacade() {
         return components.messagingFacade;
+    }
+
+    public String getDirectory(){
+        return "config/" + ID;
+    }
+
+    public static PluginContainer getContainer() {
+        return getInstance().container;
+    }
+
+    public RollFacade getRollFacade() {
+        return components.rollFacade;
     }
 
     public CardRepository getCardRepository() {
@@ -147,6 +156,9 @@ public class AtherysRoleplay {
 
         @Inject
         private RoleplayMessagingFacade messagingFacade;
+
+        @Inject
+        private RollFacade rollFacade;
 
         @Inject
         private CardRepository cardRepository;

@@ -19,7 +19,7 @@ public class PlayerListener {
         Player target = (Player) event.getTargetEntity();
         player.get(Keys.IS_SNEAKING).ifPresent(key -> {
             if (key) {
-                // AtherysRoleplay.getCardManager().getCard(target).createView().show(player);
+                AtherysRoleplay.getInstance().getCardFacade().onPlayerShiftRightClick(player, target);
             }
         });
     }

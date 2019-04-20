@@ -1,6 +1,7 @@
 package com.atherys.roleplay.facade;
 
 import com.atherys.roleplay.AtherysRoleplayConfig;
+import com.atherys.roleplay.cards.CharacterCard;
 import com.atherys.roleplay.cards.Nation;
 import com.atherys.roleplay.service.CardService;
 import com.google.inject.Inject;
@@ -88,5 +89,10 @@ public class CardFacade {
 
     public Map<String, Nation> getChoices() {
         return choices;
+    }
+
+    public void onPlayerShiftRightClick(Player target, Player source) {
+        CharacterCard card = cardService.getOrCreate(target);
+        source.sendBookView(card.toView());
     }
 }
