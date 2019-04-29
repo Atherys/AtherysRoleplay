@@ -1,8 +1,8 @@
 package com.atherys.roleplay.facade;
 
 import com.atherys.roleplay.AtherysRoleplayConfig;
-import com.atherys.roleplay.cards.CharacterCard;
-import com.atherys.roleplay.cards.Nation;
+import com.atherys.roleplay.card.CharacterCard;
+import com.atherys.roleplay.card.Nation;
 import com.atherys.roleplay.service.CardService;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

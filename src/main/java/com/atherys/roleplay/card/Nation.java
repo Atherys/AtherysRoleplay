@@ -1,4 +1,4 @@
-package com.atherys.roleplay.cards;
+package com.atherys.roleplay.card;
 
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;

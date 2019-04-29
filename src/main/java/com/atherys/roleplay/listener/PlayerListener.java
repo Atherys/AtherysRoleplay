@@ -1,4 +1,4 @@
-package com.atherys.roleplay.listeners;
+package com.atherys.roleplay.listener;
 
 import com.atherys.roleplay.AtherysRoleplay;
 import com.atherys.roleplay.menu.Menus;

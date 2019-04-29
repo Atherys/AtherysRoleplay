@@ -1,6 +1,6 @@
 package com.atherys.roleplay;
 
-import com.atherys.roleplay.cards.CharacterCard;
+import com.atherys.roleplay.card.CharacterCard;
 import com.atherys.roleplay.facade.CardFacade;
 import com.atherys.roleplay.facade.RoleplayMessagingFacade;
 import com.atherys.roleplay.facade.RollFacade;

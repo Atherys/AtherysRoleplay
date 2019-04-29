@@ -1,7 +1,7 @@
 package com.atherys.roleplay.menu;
 
 import com.atherys.roleplay.AtherysRoleplay;
-import com.atherys.roleplay.cards.Nation;
+import com.atherys.roleplay.card.Nation;
 import com.mcsimonflash.sponge.teslalibs.inventory.Element;
 import com.mcsimonflash.sponge.teslalibs.inventory.Layout;
 import com.mcsimonflash.sponge.teslalibs.inventory.View;

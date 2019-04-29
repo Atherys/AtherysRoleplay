@@ -1,7 +1,7 @@
 package com.atherys.roleplay;
 
 import com.atherys.core.utils.PluginConfig;
-import com.atherys.roleplay.cards.Nation;
+import com.atherys.roleplay.card.Nation;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 import org.spongepowered.api.item.ItemTypes;

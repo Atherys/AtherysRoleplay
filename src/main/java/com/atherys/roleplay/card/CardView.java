@@ -1,4 +1,4 @@
-package com.atherys.roleplay.cards;
+package com.atherys.roleplay.card;
 
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.BookView;

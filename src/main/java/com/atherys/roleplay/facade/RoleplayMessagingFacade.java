@@ -1,7 +1,7 @@
 package com.atherys.roleplay.facade;
 
 import com.atherys.core.facade.MessagingFacade;
-import com.atherys.roleplay.cards.Nation;
+import com.atherys.roleplay.card.Nation;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 

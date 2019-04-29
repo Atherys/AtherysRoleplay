@@ -1,7 +1,7 @@
 package com.atherys.roleplay.persistence;
 
 import com.atherys.core.db.CachedHibernateRepository;
-import com.atherys.roleplay.cards.CharacterCard;
+import com.atherys.roleplay.card.CharacterCard;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
