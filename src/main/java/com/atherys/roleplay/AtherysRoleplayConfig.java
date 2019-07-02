@@ -17,9 +17,6 @@ public class AtherysRoleplayConfig extends PluginConfig {
     @Setting("is_default")
     public boolean IS_DEFAULT = true;
 
-    @Setting("dialog_msg_delay")
-    public long DIALOG_MESSAGE_DELAY = 2;
-
     @Setting("maximum_age")
     public int MAXIMUM_AGE = 150;
 

@@ -3,6 +3,7 @@ package com.atherys.roleplay.facade;
 import com.atherys.roleplay.AtherysRoleplayConfig;
 import com.atherys.roleplay.card.CharacterCard;
 import com.atherys.roleplay.card.Nation;
+import com.atherys.roleplay.menu.Menus;
 import com.atherys.roleplay.service.CardService;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -54,13 +55,12 @@ public class CardFacade {
         }
     }
 
-    public void setCardDescription(Player source, String description) {
-        cardService.setCardDescription(cardService.getOrCreate(source), description);
-        messagingFacade.info(source, "Character description set.");
-    }
-
-    public void addToCardDescription(Player source, String description) {
-        cardService.addToCardDescription(cardService.getOrCreate(source), description);
+    public void setCardDescription(Player source, String description, boolean delete) {
+        if (delete) {
+            cardService.setCardDescription(cardService.getOrCreate(source), description);
+        } else {
+            cardService.addToCardDescription(cardService.getOrCreate(source), description);
+        }
         messagingFacade.info(source, "Character description updated.");
     }
 
@@ -94,5 +94,9 @@ public class CardFacade {
     public void onPlayerShiftRightClick(Player target, Player source) {
         CharacterCard card = cardService.getOrCreate(target);
         source.sendBookView(card.toView());
+    }
+
+    public void openCardMenu(Player source) {
+        Menus.cardMenu.open(source);
     }
 }

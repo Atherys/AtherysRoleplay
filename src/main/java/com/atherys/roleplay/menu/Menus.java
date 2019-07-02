@@ -94,7 +94,7 @@ public class Menus {
                     AtherysRoleplay.getInstance().getMessagingFacade().info(action.getPlayer(), "Enter additions to your description.");
                     MenuUtils.startSession(
                             action.getPlayer(),
-                            s -> AtherysRoleplay.getInstance().getCardFacade().addToCardDescription(action.getPlayer(), s)
+                            s -> AtherysRoleplay.getInstance().getCardFacade().setCardDescription(action.getPlayer(), s, false)
                     );
                 }
         );
@@ -106,7 +106,7 @@ public class Menus {
 
         Element resetDescription = Element.of(
                 resetDescriptionItem,
-                action -> AtherysRoleplay.getInstance().getCardFacade().setCardDescription(action.getPlayer(), "")
+                action -> AtherysRoleplay.getInstance().getCardFacade().setCardDescription(action.getPlayer(), "", true)
         );
 
         ItemStack resetItem = ItemStack.builder()

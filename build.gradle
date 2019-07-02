@@ -33,15 +33,21 @@ repositories {
     }
 }
 
+configurations.all {
+    exclude group: 'org.spongepowered.api', module: ''
+}
+
 dependencies {
     shadow 'org.spongepowered:spongeapi:7.0.0-SNAPSHOT'
-    shadow 'com.github.Atherys-Horizons:AtherysCore:1.13.3'
+    shadow 'com.github.Atherys-Horizons:AtherysCore:1.13.8'
     compile 'com.github.SimonFlash.TeslaPowered:TeslaLibs:v1.1.5'
 }
 
 shadowJar {
-    relocate 'org.bson', 'com.atherys.libs.org.bson'
-    relocate 'com.mongodb', 'com.atherys.libs.com.mongodb'
+    relocate 'com.mcsimonflash.sponge.teslalibs', 'com.atherys.teslalibs'
+    dependencies {
+        include dependency("com.github.SimonFlash.TeslaPowered:TeslaLibs:v1.1.5")
+    }
 }
 
 javadoc {

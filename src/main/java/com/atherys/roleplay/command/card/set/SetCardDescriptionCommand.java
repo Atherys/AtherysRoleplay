@@ -21,13 +21,16 @@ public class SetCardDescriptionCommand implements ParameterizedCommand, PlayerCo
     @Nonnull
     @Override
     public CommandResult execute(@Nonnull Player source, @Nonnull CommandContext args) {
-        AtherysRoleplay.getInstance().getCardFacade().addToCardDescription(source, args.<String>getOne("description").orElse(""));
+        AtherysRoleplay.getInstance().getCardFacade().setCardDescription(
+                source, args.<String>getOne("description").orElse(""), args.hasAny("f")
+        );
         return CommandResult.success();
     }
 
     @Override
     public CommandElement[] getArguments() {
         return new CommandElement[]{
+                GenericArguments.flags().flag("d").buildWith(GenericArguments.none()),
                 GenericArguments.remainingJoinedStrings(Text.of("description"))
         };
     }
