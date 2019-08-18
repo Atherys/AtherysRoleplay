@@ -39,15 +39,7 @@ configurations.all {
 
 dependencies {
     shadow 'org.spongepowered:spongeapi:7.0.0-SNAPSHOT'
-    shadow 'com.github.Atherys-Horizons:AtherysCore:1.13.8'
-    compile 'com.github.SimonFlash.TeslaPowered:TeslaLibs:v1.1.5'
-}
-
-shadowJar {
-    relocate 'com.mcsimonflash.sponge.teslalibs', 'com.atherys.teslalibs'
-    dependencies {
-        include dependency("com.github.SimonFlash.TeslaPowered:TeslaLibs:v1.1.5")
-    }
+    shadow 'com.github.Atherys-Horizons:AtherysCore:1.14.5'
 }
 
 javadoc {
