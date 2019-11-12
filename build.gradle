@@ -1,57 +1,7 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.2'
-    }
+plugins {
+    id 'com.github.johnrengelman.shadow' version '2.0.2'
+    id 'com.atherys.gradle' version '1.1.5'
 }
 
-apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-
-sourceSets {
-    main {
-        resources {
-            exclude "java/**"
-            exclude "kotlin/**"
-        }
-    }
-}
-
-repositories {
-    mavenCentral()
-    maven {
-        name = 'sponge'
-        url = 'https://repo.spongepowered.org/maven'
-    }
-    maven {
-        name = 'jitpack'
-        url = 'https://jitpack.io'
-    }
-}
-
-configurations.all {
-    exclude group: 'org.spongepowered.api', module: ''
-}
-
-dependencies {
-    shadow 'org.spongepowered:spongeapi:7.0.0-SNAPSHOT'
-    shadow 'com.github.Atherys-Horizons:AtherysCore:1.14.5'
-}
-
-javadoc {
-    source = sourceSets.main.allJava
-    title = "AtherysRoleplay"
-    classpath = configurations.compile + configurations.shadow
-    options.links(
-            'http://www.slf4j.org/apidocs/',
-            'https://docs.oracle.com/javase/8/docs/api/',
-            'https://flow.github.io/math/',
-            'http://jd.spongepowered.org/7.1.0/'
-    )
-    options.addStringOption('Xdoclint:none', '-quiet')
-}
+group 'com.atherys'
 

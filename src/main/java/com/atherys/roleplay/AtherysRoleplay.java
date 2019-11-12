@@ -1,5 +1,6 @@
 package com.atherys.roleplay;
 
+import com.atherys.core.AtherysCore;
 import com.atherys.core.command.CommandService;
 import com.atherys.core.event.AtherysHibernateConfigurationEvent;
 import com.atherys.core.event.AtherysHibernateInitializedEvent;
@@ -53,7 +54,9 @@ public class AtherysRoleplay {
         components = new Components();
         townsInjector = spongeInjector.createChildInjector(new AtherysRoleplayModule());
         townsInjector.injectMembers(components);
-        getCardRepository().initCache();
+        if (AtherysCore.getConfig().DB_ENABLED) {
+            getCardRepository().initCache();
+        }
         init = true;
     }
 
@@ -68,7 +71,9 @@ public class AtherysRoleplay {
     }
 
     private void stop() {
-        getCardRepository().flushCache();
+        if (AtherysCore.getConfig().DB_ENABLED) {
+            getCardRepository().flushCache();
+        }
     }
 
     @Listener
