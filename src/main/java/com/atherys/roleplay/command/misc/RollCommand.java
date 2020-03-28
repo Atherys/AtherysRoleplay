@@ -2,6 +2,7 @@ package com.atherys.roleplay.command.misc;
 
 import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.annotation.Aliases;
+import com.atherys.core.command.annotation.Permission;
 import com.atherys.roleplay.AtherysRoleplay;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -13,6 +14,7 @@ import org.spongepowered.api.text.Text;
 import javax.annotation.Nonnull;
 
 @Aliases("roll")
+@Permission("atherysroleplay.roll")
 public class RollCommand implements ParameterizedCommand {
 
     @Nonnull

@@ -4,6 +4,7 @@ import com.atherys.core.command.ParameterizedCommand;
 import com.atherys.core.command.PlayerCommand;
 import com.atherys.core.command.annotation.Aliases;
 import com.atherys.core.command.annotation.Description;
+import com.atherys.core.command.annotation.Permission;
 import com.atherys.roleplay.AtherysRoleplay;
 import com.atherys.roleplay.card.Nation;
 import org.spongepowered.api.command.CommandException;
@@ -17,6 +18,7 @@ import org.spongepowered.api.text.Text;
 import javax.annotation.Nonnull;
 
 @Aliases("nation")
+@Permission("atherysroleplay.card.nation")
 @Description("Sets the nation of your character.")
 public class SetCardNationCommand implements ParameterizedCommand, PlayerCommand {
 
