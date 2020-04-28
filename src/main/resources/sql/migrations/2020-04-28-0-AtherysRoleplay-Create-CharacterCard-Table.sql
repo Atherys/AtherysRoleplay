@@ -1,4 +1,4 @@
-CREATE TABLE atherys.charactercard (
+CREATE TABLE IF NOT EXISTS atherys.charactercard (
     player uuid NOT NULL,
     age character varying(255),
     description character varying(255),
