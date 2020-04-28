@@ -7,3 +7,6 @@ CREATE TABLE IF NOT EXISTS atherys.charactercard (
     nickname character varying(255),
     playername character varying(255)
 );
+
+ALTER TABLE atherys.charactercard DROP CONSTRAINT IF EXISTS charactercard_pkey;
+ALTER TABLE ONLY atherys.charactercard ADD CONSTRAINT charactercard_pkey PRIMARY KEY (player);
