@@ -30,7 +30,7 @@ public class AtherysRoleplay {
     static final String ID = "atherysroleplay";
     static final String NAME = "A'therys Roleplay";
     static final String DESCRIPTION = "A roleplay plugin written for the A'therys Horizons server.";
-    static final String VERSION = "%PLUGIN_VERSION%";
+    static final String VERSION = "%PROJECT_VERSION%";
 
     @Inject
     private Logger logger;
