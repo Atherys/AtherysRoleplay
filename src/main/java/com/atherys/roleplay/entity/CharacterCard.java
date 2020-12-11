@@ -1,14 +1,17 @@
-package com.atherys.roleplay.card;
+package com.atherys.roleplay.entity;
 
 import com.atherys.core.db.Identifiable;
+import com.atherys.roleplay.card.CardView;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.BookView;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
+@Table(schema = "atherysroleplay", name = "CharacterCard")
 public class CharacterCard implements Identifiable<UUID> {
 
     private String age;
