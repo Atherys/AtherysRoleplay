@@ -2,9 +2,10 @@ package com.atherys.roleplay;
 
 import com.atherys.core.AtherysCore;
 import com.atherys.core.command.CommandService;
+import com.atherys.core.event.AtherysDatabaseMigrationEvent;
 import com.atherys.core.event.AtherysHibernateConfigurationEvent;
 import com.atherys.core.event.AtherysHibernateInitializedEvent;
-import com.atherys.roleplay.card.CharacterCard;
+import com.atherys.roleplay.entity.CharacterCard;
 import com.atherys.roleplay.command.card.MasterCardCommand;
 import com.atherys.roleplay.command.misc.RollCommand;
 import com.atherys.roleplay.facade.CardFacade;
@@ -86,6 +87,11 @@ public class AtherysRoleplay {
         event.registerEntity(CharacterCard.class);
     }
 
+
+    @Listener
+    public void onDatabaseMigration(AtherysDatabaseMigrationEvent event) {
+        event.registerForMigration(ID);
+    }
 
     @Listener
     public void onInit(GameInitializationEvent event) {

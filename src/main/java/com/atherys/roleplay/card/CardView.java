@@ -1,5 +1,6 @@
 package com.atherys.roleplay.card;
 
+import com.atherys.roleplay.entity.CharacterCard;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.BookView;
 import org.spongepowered.api.text.Text;
